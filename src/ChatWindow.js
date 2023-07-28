@@ -42,7 +42,7 @@ const ChatWindow = () => {
   return (
     <div className="flex-1 justify-between flex flex-col h-screen">
       <Header />
-      <div id="message-list" className="flex flex-col h-full p-6 overflow-y-auto">
+      <div id="message-list" className="flex flex-col h-full p-3 sm:p-6 overflow-y-auto">
         {messages.map((message, index) => (
           <Message key={index} sender={message.sender} text={message.text} />
         ))}
