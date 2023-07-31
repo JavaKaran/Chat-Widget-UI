@@ -3,6 +3,7 @@ import Message from './components/Message.jsx';
 import Typing from './components/TypingIndicator.jsx';
 import Header from './components/Header.jsx';
 import Input from './components/Input.jsx';
+import axios from 'axios';
 
 const ChatWindow = () => {
 
@@ -18,10 +19,26 @@ const ChatWindow = () => {
     if (isTyping) return;
     setIsTyping(true);
     setMessages((prevMessage) => [...prevMessage, { sender: 'user', text }]);
-    setTimeout(() => {
-      setIsTyping(false);
-      setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: "I will help you with the same." }]);
-    }, 2500);
+    axios({
+      url: `https://botnew.brainstormer.io/widget_handler`,
+      method: 'post',
+      data: {
+        "query": text,
+        "bot_id": "bot_abb82836_bf04_4dd6_9fc1_b16d11e68a5f",
+      },
+      headers: {
+        'Api-token': 'BLiEUe64EC4Wj7HPYPXa'
+      }
+    })
+      .then((response) => {
+        if (response.data.status == 'success') {
+          setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: response.data.message }]);
+          setIsTyping(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   const handleKeyDown = (e) => {
