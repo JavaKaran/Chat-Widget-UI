@@ -7,13 +7,9 @@ import axios from 'axios';
 
 const ChatWindow = () => {
 
-  const [messages, setMessages] = useState([
-    { sender: 'user', text: 'Hello, how are you?' },
-    { sender: 'bot', text: 'I am doing well, thank you! Lets brainstorm!' }
-  ]);
+  const [messages, setMessages] = useState([]);
 
   const [isTyping, setIsTyping] = useState(false);
-  const [messageComplete, setMessageComplete] = useState(false);
 
   const textAreaRef = useRef();
   const messageListRef = useRef();
@@ -37,7 +33,6 @@ const ChatWindow = () => {
         if (response.data.status === 'success') {
           setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: response.data.message }]);
           setIsTyping(false);
-          setMessageComplete(false);
         }
       })
       .catch((err) => {
@@ -61,19 +56,6 @@ const ChatWindow = () => {
   }
 
   useEffect(() => {
-    if(!messageComplete){
-      const interval = setInterval(() => {
-        scrollToEnd();
-      } , 1000)
-      scrollToEnd();
-
-      return () => clearInterval(interval);
-    } else {
-      scrollToEnd()
-    }
-  }, [messageComplete]);
-
-  useEffect(() => {
     scrollToEnd();
   }, [messages]);
 
@@ -84,9 +66,6 @@ const ChatWindow = () => {
         {messages.map((message, index) => (
           <Message
             key={index}
-            isLastBotMessage={index === messages.length - 1 && message.sender !== 'user'}
-            scrollToEnd={scrollToEnd}
-            messageComplete={setMessageComplete}
             sender={message.sender}
             text={message.text} />
         ))}

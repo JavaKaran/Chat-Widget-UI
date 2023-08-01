@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-
 const Header = () => {
 
-  const [license, setLicense] = useState('');
+  const [domain, setDomain] = useState('');
   const [bot, setBot] = useState({
     name: 'BrainStormer',
     description: "Let's Brainstorm the future!",
@@ -12,10 +11,10 @@ const Header = () => {
   useEffect(() => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const license = urlParams.get("license");
-    setLicense(license);
+    const domain = urlParams.get("domain");
+    setDomain(domain);
 
-    if(license === "Homework"){
+    if(domain === "Homework"){
       setBot({
         name: 'HomeWorkHero',
         description: "Let's make the homework interesting!"
