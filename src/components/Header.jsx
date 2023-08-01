@@ -1,27 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-const Header = () => {
-
-  const [domain, setDomain] = useState('');
-  const [bot, setBot] = useState({
-    name: 'BrainStormer',
-    description: "Let's Brainstorm the future!",
-  });
-
-  useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const domain = urlParams.get("domain");
-    setDomain(domain);
-
-    if(domain === "Homework"){
-      setBot({
-        name: 'HomeWorkHero',
-        description: "Let's make the homework interesting!"
-      })
-    }
-  }, []);
-
+const Header = ({ bot }) => {
   return (
     <div className="flex sm:items-center justify-between py-2 sm:py-3 bg-[#ebebebde] border-b-2 px-6 border-gray-200">
       <div className="relative flex items-center space-x-4">

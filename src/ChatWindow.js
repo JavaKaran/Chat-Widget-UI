@@ -8,8 +8,12 @@ import axios from 'axios';
 const ChatWindow = () => {
 
   const [messages, setMessages] = useState([]);
-
   const [isTyping, setIsTyping] = useState(false);
+  const [domain, setDomain] = useState('');
+  const [bot, setBot] = useState({
+    name: 'BrainStormer',
+    description: "Let's Brainstorm the future!",
+  });
 
   const textAreaRef = useRef();
   const messageListRef = useRef();
@@ -59,9 +63,24 @@ const ChatWindow = () => {
     scrollToEnd();
   }, [messages]);
 
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const domain = urlParams?.get("domain");
+    setDomain(domain);
+
+    if (!domain?.includes('.noesis')) {
+      setBot({
+        name: 'HomeWorkHero',
+        description: "Let's make the homework interesting!"
+      })
+    }
+  }, []);
+
+
   return (
     <div className="flex-1 justify-between flex flex-col h-screen">
-      <Header />
+      <Header bot={bot} />
       <div id="message-list" ref={messageListRef} className="flex flex-col h-full p-3 sm:p-6 overflow-y-auto">
         {messages.map((message, index) => (
           <Message
@@ -69,7 +88,7 @@ const ChatWindow = () => {
             sender={message.sender}
             text={message.text} />
         ))}
-        {isTyping && <Typing />}
+        {isTyping && <Typing bot={bot} />}
       </div>
       <Input textAreaRef={textAreaRef} handleKeyDown={handleKeyDown} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} />
     </div>

@@ -37,9 +37,11 @@ code {
   background: #5658d8;
 }
 
-.chat-typing-indicator span {
-  height: 6px;
-  width: 6px;
+.chat-typing-indicator span.dot {
+  height: 4px;
+  width: 4px;
+  margin: 0 3px;
+  margin-bottom: 2.7px;
   float: left;
   background-color: #2C2D98;
   display: block;
@@ -47,17 +49,17 @@ code {
   opacity: 0.2;
 }
 
-.chat-typing-indicator span:nth-of-type(1) {
+.chat-typing-indicator span.dot:nth-of-type(1) {
   -webkit-animation: 1s blink infinite 0.3333s;
           animation: 1s blink infinite 0.3333s;
 }
 
-.chat-typing-indicator span:nth-of-type(2) {
+.chat-typing-indicator span.dot:nth-of-type(2) {
   -webkit-animation: 1s blink infinite 0.6666s;
           animation: 1s blink infinite 0.6666s;
 }
 
-.chat-typing-indicator span:nth-of-type(3) {
+.chat-typing-indicator span.dot:nth-of-type(3) {
   -webkit-animation: 1s blink infinite 0.9999s;
           animation: 1s blink infinite 0.9999s;
 }
