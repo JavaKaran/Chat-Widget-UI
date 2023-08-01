@@ -12,7 +12,7 @@ const Input = ({ textAreaRef, handleKeyDown, handleMessageSend, setIsTyping, isT
     return (
         <div className="border-t-2 border-gray-200 p-3 sm:p-6 sm:mb-0">
             <div className="relative flex justify-around">
-                <textarea type="text" placeholder="Write your message!" className="w-[90%] focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 outline outline-1 outline-gray-400/50 pl-4 bg-transparent rounded-md py-2 sm:py-3 resize-none text-sm" ref={textAreaRef} onKeyDown={handleKeyDown} rows={'1'} />
+                <textarea type="text" placeholder="Write your message!" className="w-[90%] focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 outline outline-1 outline-gray-400/50 pl-4 bg-transparent rounded-md py-[10px] sm:py-3 resize-none text-[13px] sm:text-sm" ref={textAreaRef} onKeyDown={handleKeyDown} rows={'1'} />
                 <div className="items-center flex">
                     <button type="button" className="flex items-center justify-center rounded-lg px-3 py-2 ml-2 sm:ml-0 sm:px-4 sm:py-3 transition duration-500 ease-in-out text-white bg-[#2C2D98] hover:bg-[#5658d8] focus:outline-none" onClick={handleSendClick} disabled={isTyping}>
                         <span className="font-bold sm:block hidden">Send</span>

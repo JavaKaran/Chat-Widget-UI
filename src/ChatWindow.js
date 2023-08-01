@@ -13,7 +13,10 @@ const ChatWindow = () => {
   ]);
 
   const [isTyping, setIsTyping] = useState(false);
+  const [messageComplete, setMessageComplete] = useState(false);
+
   const textAreaRef = useRef();
+  const messageListRef = useRef();
 
   const handleMessageSend = (text) => {
     if (isTyping) return;
@@ -31,9 +34,10 @@ const ChatWindow = () => {
       }
     })
       .then((response) => {
-        if (response.data.status == 'success') {
+        if (response.data.status === 'success') {
           setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: response.data.message }]);
           setIsTyping(false);
+          setMessageComplete(false);
         }
       })
       .catch((err) => {
@@ -51,17 +55,40 @@ const ChatWindow = () => {
     }
   }
 
-  useEffect(() => {
-    const messageList = document.getElementById('message-list');
+  const scrollToEnd = () => {
+    const messageList = messageListRef.current;
     messageList.scrollTop = messageList.scrollHeight;
+  }
+
+  useEffect(() => {
+    if(!messageComplete){
+      const interval = setInterval(() => {
+        scrollToEnd();
+      } , 1000)
+      scrollToEnd();
+
+      return () => clearInterval(interval);
+    } else {
+      scrollToEnd()
+    }
+  }, [messageComplete]);
+
+  useEffect(() => {
+    scrollToEnd();
   }, [messages]);
 
   return (
     <div className="flex-1 justify-between flex flex-col h-screen">
       <Header />
-      <div id="message-list" className="flex flex-col h-full p-3 sm:p-6 overflow-y-auto">
+      <div id="message-list" ref={messageListRef} className="flex flex-col h-full p-3 sm:p-6 overflow-y-auto">
         {messages.map((message, index) => (
-          <Message key={index} isLastBotMessage={index === messages.length - 1 && message.sender !== 'user'} sender={message.sender} text={message.text} />
+          <Message
+            key={index}
+            isLastBotMessage={index === messages.length - 1 && message.sender !== 'user'}
+            scrollToEnd={scrollToEnd}
+            messageComplete={setMessageComplete}
+            sender={message.sender}
+            text={message.text} />
         ))}
         {isTyping && <Typing />}
       </div>

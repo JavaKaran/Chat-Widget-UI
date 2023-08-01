@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Message = ({ sender, text, isLastBotMessage }) => {
+const Message = ({ sender, text, isLastBotMessage, messageComplete }) => {
 
   const [displayContent, setDisplayContent] = useState("");
 
@@ -19,6 +19,7 @@ const Message = ({ sender, text, isLastBotMessage }) => {
 
         if (i > text.length) {
           clearInterval(intervalId);
+          messageComplete(true);
         }
       }, 30);
 
