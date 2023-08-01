@@ -61,7 +61,7 @@ const ChatWindow = () => {
       <Header />
       <div id="message-list" className="flex flex-col h-full p-3 sm:p-6 overflow-y-auto">
         {messages.map((message, index) => (
-          <Message key={index} sender={message.sender} text={message.text} />
+          <Message key={index} isLastBotMessage={index === messages.length - 1 && message.sender !== 'user'} sender={message.sender} text={message.text} />
         ))}
         {isTyping && <Typing />}
       </div>
