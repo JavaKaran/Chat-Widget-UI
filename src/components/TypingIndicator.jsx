@@ -2,7 +2,7 @@ import React from 'react';
 
 const TypingIndicator = ({ bot }) => {
     return (
-        <div className='flex items-end'>
+        <div className='flex items-end my-1 sm:my-2'>
             <img src="../../App icon.png" alt="Avatar" className="w-6 h-6 rounded-full" />
             <div className="flex items-end ml-2 bg-gray-300 rounded-bl-none p-2 sm:p-4 rounded-lg chat-typing-indicator">
                 <span className="dot"></span>

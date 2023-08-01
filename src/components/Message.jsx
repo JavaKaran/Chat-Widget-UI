@@ -7,7 +7,7 @@ const Message = ({ sender, text }) => {
   const roundedClass = sender === 'user' ? 'rounded-br-none' : 'rounded-bl-none';
 
   return (
-    <div className="chat-message my-2">
+    <div className="chat-message my-1 sm:my-2">
       <div className={`flex items-end ${sender === 'user' ? 'justify-end' : ''}`}>
         <div className={`flex flex-col  max-w-[80%] sm:max-w-[90%] mx-2 order-${sender === 'user' ? '1' : 'last'} items-${sender === 'user' ? 'end' : 'start'}`}>
           <span className={`p-2 text-[11px] leading-[15px] sm:text-sm rounded-lg inline-block w-full break-words ${roundedClass} ${bgColor} ${textColor}`}>{text}</span>
