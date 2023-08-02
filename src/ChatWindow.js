@@ -30,7 +30,7 @@ const ChatWindow = () => {
         "bot_id": "bot_abb82836_bf04_4dd6_9fc1_b16d11e68a5f",
       },
       headers: {
-        'Api-token': 'BLiEUe64EC4Wj7HPYPXa'
+        'Api-token': process.env.REACT_APP_BOT_API_KEY
       }
     })
       .then((response) => {
@@ -65,6 +65,29 @@ const ChatWindow = () => {
         description: "Let's make the homework interesting!"
       })
     }
+
+    setIsTyping(true);
+
+    axios({
+      url: `https://botnew.brainstormer.io/widget_handler`,
+      method: 'post',
+      data: {
+        "query": 'hi, who are you and how can you help me?',
+        "bot_id": "bot_abb82836_bf04_4dd6_9fc1_b16d11e68a5f",
+      },
+      headers: {
+        'Api-token': 'BLiEUe64EC4Wj7HPYPXa'
+      }
+    })
+      .then((response) => {
+        if (response.data.status === 'success') {
+          setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: response.data.message }]);
+          setIsTyping(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }, []);
 
 
