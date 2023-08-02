@@ -44,16 +44,6 @@ const ChatWindow = () => {
       })
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      if (!isTyping) {
-        e.preventDefault();
-        handleMessageSend(e.target.value);
-        e.target.value = '';
-      }
-    }
-  }
-
   const scrollToEnd = () => {
     const messageList = messageListRef.current;
     messageList.scrollTop = messageList.scrollHeight;
@@ -90,7 +80,7 @@ const ChatWindow = () => {
         ))}
         {isTyping && <Typing bot={bot} />}
       </div>
-      <Input textAreaRef={textAreaRef} handleKeyDown={handleKeyDown} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} />
+      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} />
     </div>
   );
 }

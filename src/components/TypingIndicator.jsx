@@ -8,7 +8,7 @@ const TypingIndicator = ({ bot }) => {
                 <span className="dot"></span>
                 <span className="dot"></span>
                 <span className="dot"></span>
-                <span className='text-[11px] leading-[15px] sm:text-sm ml-[5px]'>{bot.name} is typing</span>
+                {/* <span className='text-[11px] leading-[15px] sm:text-sm ml-[5px]'>{bot.name} is typing</span> */}
             </div>
         </div>
     );

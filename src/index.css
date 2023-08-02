@@ -38,8 +38,8 @@ code {
 }
 
 .chat-typing-indicator span.dot {
-  height: 4px;
-  width: 4px;
+  height: 8px;
+  width: 8px;
   margin: 0 3px;
   margin-bottom: 2.7px;
   float: left;
@@ -47,6 +47,13 @@ code {
   display: block;
   border-radius: 50%;
   opacity: 0.2;
+}
+
+@media screen and (max-width: 850px){
+  .chat-typing-indicator span.dot {
+    height: 4px;
+    width: 4px;
+  }
 }
 
 .chat-typing-indicator span.dot:nth-of-type(1) {
@@ -84,4 +91,9 @@ code {
   50% {
     transform: scale(1.05);
   }
+}
+
+.message-input:empty:before {
+  content:attr(placeholder);
+  color: gray;
 }
