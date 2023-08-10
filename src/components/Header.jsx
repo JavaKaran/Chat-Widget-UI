@@ -6,7 +6,7 @@ const Header = ({ bot }) => {
       <div className="relative flex items-center space-x-4">
         <img src="../../App icon.png" alt="Brainstormer Logo" className="w-8 sm:w-16 h-8 sm:h-16 rounded-full" />
         <div className="flex flex-col leading-tight">
-          <div className="text-md sm:text-2xl">
+          <div className="text-lg sm:text-2xl">
             <span className="text-gray-700 mr-3">{bot.name}</span>
           </div>
           <span className="text-xs sm:text-sm text-gray-600">{bot.description}</span>

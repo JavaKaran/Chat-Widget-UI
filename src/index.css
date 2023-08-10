@@ -1,6 +1,23 @@
-@tailwind base;
+/* @tailwind base; */
 @tailwind components;
 @tailwind utilities;
+
+.markdown-text p,pre {
+  margin: 0;
+}
+
+.markdown-text h1,h2,h3,h4,h5,h6{
+  margin-top: 0.5rem
+}
+
+.markdown-text > *:first-child{
+  margin-top: 0;
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+}
+
 
 body {
   margin: 0;
@@ -14,6 +31,14 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.codeStyle {
+  margin: 20px 0 !important;
+}
+
+.codeStyle::-webkit-scrollbar {
+  display: none;
 }
 
 /* width */
@@ -49,6 +74,11 @@ code {
 }
 
 @media screen and (max-width: 850px){
+  p, li, a{
+    font-size: 13px;
+    line-height: 18px;
+  }
+
   .chat-typing-indicator span.dot {
     height: 4px;
     width: 4px;
