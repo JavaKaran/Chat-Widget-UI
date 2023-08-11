@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-let verifiedSite;
+let verifiedSite = false;
 let allowedDomains = ['demo.noesis.dev', 'chat-widget-plum.vercel.app']
 let iframeDomain;
 
@@ -16,7 +16,7 @@ let iframeDomain;
 
 window.addEventListener('message', (event) => {
   // Check the origin of the event to ensure it's from an allowed domain
-  console.log(event.data);
+  console.log(event.data, typeof(event.data));
   if (allowedDomains.includes(event.origin)) {
     verifiedSite = true;
     iframeDomain = event.data;
