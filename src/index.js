@@ -16,6 +16,8 @@ const App = () => {
   const urlParams = new URLSearchParams(queryString);
   const botId = urlParams?.get("bot");
 
+  console.log(botId)
+
   const handlePostMessage = (event) => {
     if (allowedDomains.includes(event.origin)) {
       setIframeDomain(event.data);
