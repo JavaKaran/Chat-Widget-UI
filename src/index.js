@@ -18,6 +18,7 @@ window.addEventListener('message', (event) => {
   // Check the origin of the event to ensure it's from an allowed domain
   if (sites.include(event.origin)) {
     verifiedSite = true;
+    domain = event.data;
   }
 });
 
