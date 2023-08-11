@@ -6,17 +6,24 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-let site = window.location.host;
+let verifiedSite;
+let sites = ['demo.noesis.dev', 'chat-widget-plum.vercel.app']
+let domain;
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const domain = urlParams?.get("domain");
+// const queryString = window.location.search;
+// const urlParams = new URLSearchParams(queryString);
+// const domain = urlParams?.get("domain");
 
-console.log(site);
+window.addEventListener('message', (event) => {
+  // Check the origin of the event to ensure it's from an allowed domain
+  if (sites.include(event.origin)) {
+    verifiedSite = true;
+  }
+});
 
 root.render(
   <React.StrictMode>
-    {site === domain && <ChatWindow />}
+    {verifiedSite && <ChatWindow domain={domain} />}
   </React.StrictMode>
 );
 
