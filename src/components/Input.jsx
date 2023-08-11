@@ -42,7 +42,7 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping }) => {
     };
 
     return (
-        <div className="border-t-2 border-gray-200 p-3 sm:p-6 sm:mb-0 shadow-lg">
+        <div className="border-t-2 border-gray-200 p-2 sm:p-6 sm:mb-0 shadow-lg">
             <div className="relative flex justify-around">
                 <textarea 
                     placeholder="Write your message!" 
