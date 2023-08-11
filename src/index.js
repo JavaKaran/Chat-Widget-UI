@@ -16,7 +16,7 @@ const App = () => {
     if (allowedDomains.includes(event.origin)) {
       setIframeDomain(event.data);
       setVerified(true);
-      console.log("Origins allowed")
+      // console.log("Origins allowed")
     } else {
       console.log("Origin not allowed:", event.origin);
     }

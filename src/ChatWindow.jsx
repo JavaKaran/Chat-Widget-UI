@@ -58,7 +58,7 @@ const ChatWindow = ({ iframeDomain }) => {
       }
     })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         if(response.status === 200 && response.data.data.length > 0){
           let bot = response?.data?.data[0]?.attributes;
           let botImage = bot?.ProfileImage?.data?.attributes?.url;
@@ -109,7 +109,7 @@ const ChatWindow = ({ iframeDomain }) => {
             text={message.text} 
             image={bot.image} />
         ))}
-        {isTyping && <Typing bot={bot} />}
+        {isTyping && <Typing image={bot.image} />}
       </div>
       <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} />
     </div>
