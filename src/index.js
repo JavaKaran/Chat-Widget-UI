@@ -36,7 +36,7 @@ const App = () => {
 
   return (
     <React.StrictMode>
-      {verified && botId !== null && <ChatWindow iframeDomain={iframeDomain} botApiId={botId} /> }
+      {verified && botId && botId !== "null" && <ChatWindow iframeDomain={iframeDomain} botApiId={botId} /> }
     </React.StrictMode>
   );
 }
