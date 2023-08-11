@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-let allowedDomains = ['https://demo.noesis.dev', 'https://chat-widget-plum.vercel.app'];
+let allowedDomains = process.env.REACT_APP_ALLOWED_DOMAINS?.split(',');
 
 const App = () => {
   const [verified, setVerified] = useState(false);
