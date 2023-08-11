@@ -12,6 +12,8 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const domain = urlParams?.get("domain");
 
+console.log(site);
+
 root.render(
   <React.StrictMode>
     {site === domain && <ChatWindow />}
