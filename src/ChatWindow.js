@@ -7,9 +7,7 @@ import axios from 'axios';
 
 const ChatWindow = () => {
 
-  const [messages, setMessages] = useState([
-    {sender: 'user', text: '`demo` code is this coming'}
-  ]);
+  const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [domain, setDomain] = useState('');
   const [bot, setBot] = useState({
@@ -60,6 +58,7 @@ const ChatWindow = () => {
     const urlParams = new URLSearchParams(queryString);
     const domain = urlParams?.get("domain");
     setDomain(domain);
+    console.log(window.location.host);
 
     if (!domain?.includes('.noesis')) {
       setBot({
