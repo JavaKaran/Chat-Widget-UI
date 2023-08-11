@@ -16,6 +16,7 @@ let iframeDomain;
 
 window.addEventListener('message', (event) => {
   // Check the origin of the event to ensure it's from an allowed domain
+  console.log(event.data);
   if (allowedDomains.includes(event.origin)) {
     verifiedSite = true;
     iframeDomain = event.data;
