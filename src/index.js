@@ -16,8 +16,6 @@ const App = () => {
   const urlParams = new URLSearchParams(queryString);
   const botId = urlParams?.get("bot");
 
-  console.log(botId, typeof(botId))
-
   const handlePostMessage = (event) => {
     if (allowedDomains.includes(event.origin)) {
       setIframeDomain(event.data);
@@ -38,7 +36,7 @@ const App = () => {
 
   return (
     <React.StrictMode>
-      {verified && botId !== null && <ChatWindow iframeDomain={iframeDomain} botApiId={botId} /> }
+      {verified && botId && botId !== "null" && <ChatWindow iframeDomain={iframeDomain} botApiId={botId} /> }
     </React.StrictMode>
   );
 }
