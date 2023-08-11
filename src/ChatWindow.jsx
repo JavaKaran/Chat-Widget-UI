@@ -7,12 +7,17 @@ import axios from 'axios';
 
 const ChatWindow = () => {
 
+  let site = window.location.origin;
+  let assetUrl = 'https://studio.brainstormer.io';
+
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [domain, setDomain] = useState('');
+  const [botId, setBotId] = useState('');
   const [bot, setBot] = useState({
-    name: 'BrainStormer',
-    description: "Let's Brainstorm the future!",
+    name: '',
+    description: "",
+    image: `${site}/background.png`
   });
 
   const textAreaRef = useRef();
@@ -22,26 +27,7 @@ const ChatWindow = () => {
     if (isTyping) return;
     setIsTyping(true);
     setMessages((prevMessage) => [...prevMessage, { sender: 'user', text }]);
-    axios({
-      url: `https://botnew.brainstormer.io/widget_handler`,
-      method: 'post',
-      data: {
-        "query": text,
-        "bot_id": "bot_abb82836_bf04_4dd6_9fc1_b16d11e68a5f",
-      },
-      headers: {
-        'Api-token': process.env.REACT_APP_BOT_API_KEY
-      }
-    })
-      .then((response) => {
-        if (response.data.status === 'success') {
-          setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: response.data.message }]);
-          setIsTyping(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    sendMessage(text);
   };
 
   const scrollToEnd = () => {
@@ -57,24 +43,46 @@ const ChatWindow = () => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const domain = urlParams?.get("domain");
+    const botId = urlParams?.get("bot");
+
+    setBotId(botId);
     setDomain(domain);
-    console.log(window.location.host);
-
-    if (!domain?.includes('.noesis')) {
-      setBot({
-        name: 'HomeWorkHero',
-        description: "Let's make the homework interesting!"
-      })
-    }
-
-    setIsTyping(true);
 
     axios({
-      url: `https://botnew.brainstormer.io/widget_handler`,
-      method: 'post',
+      url: `https://botnew.brainstormer.io/bot_by_id/bot_${botId}`,
+      method: 'POST',
       data: {
-        "query": 'hi, who are you and how can you help me?',
-        "bot_id": "bot_abb82836_bf04_4dd6_9fc1_b16d11e68a5f",
+        domain: domain
+      },
+      headers: {
+        'Api-token': 'BLiEUe64EC4Wj7HPYPXa'
+      }
+    })
+      .then((response) => {
+        console.log(response);
+        if(response.status === 200 && response.data.data.length > 0){
+          let bot = response?.data?.data[0]?.attributes;
+          let botImage = bot?.ProfileImage?.data?.attributes?.url;
+          setBot({
+            name: bot.Name ? bot.Name : "Brainstormer",
+            description: bot.Description ? bot.Description : "Let's Brainstorm the future!",
+            image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`
+          })
+          setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: bot.WelcomeMessage }]);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
+
+  const sendMessage = (text) => {
+    axios({
+      url: `https://botnew.brainstormer.io/widget_handler`,
+      method: 'POST',
+      data: {
+        "query": text ? text : 'hi, who are you and how can you help me?',
+        "bot_id": `bot_${botId}`,
       },
       headers: {
         'Api-token': 'BLiEUe64EC4Wj7HPYPXa'
@@ -89,8 +97,7 @@ const ChatWindow = () => {
       .catch((err) => {
         console.log(err);
       })
-  }, []);
-
+  }
 
   return (
     <div className="flex-1 justify-between flex flex-col h-screen">
@@ -100,7 +107,8 @@ const ChatWindow = () => {
           <Message
             key={index}
             sender={message.sender}
-            text={message.text} />
+            text={message.text} 
+            image={bot.image} />
         ))}
         {isTyping && <Typing bot={bot} />}
       </div>

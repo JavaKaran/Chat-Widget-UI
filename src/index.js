@@ -5,9 +5,16 @@ import ChatWindow from './ChatWindow';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+let site = window.location.host;
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const domain = urlParams?.get("domain");
+
 root.render(
   <React.StrictMode>
-    <ChatWindow />
+    {site === domain && <ChatWindow />}
   </React.StrictMode>
 );
 

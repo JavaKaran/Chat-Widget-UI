@@ -10,7 +10,7 @@ SyntaxHighlighter.registerLanguage('python', python);
 SyntaxHighlighter.registerLanguage('javascript', javascript);
 SyntaxHighlighter.registerLanguage('markdown', markdown);
 
-const Message = ({ sender, text }) => {
+const Message = ({ sender, text, image }) => {
 
   const textColor = sender === 'user' ? 'text-white' : 'text-gray-600';
   const bgColor = sender === 'user' ? 'bg-[#2c2d98]' : 'bg-gray-300';
@@ -51,7 +51,7 @@ const Message = ({ sender, text }) => {
             </ReactMarkdown>
           </div>
         </div>
-        {sender !== "user" && <img src="../../App icon.png" alt="My profile" className="w-6 h-6 rounded-full order-first" />}
+        {sender !== "user" && <img src={image} alt="My profile" className="w-6 h-6 rounded-full order-first" />}
       </div>
     </div>
   );

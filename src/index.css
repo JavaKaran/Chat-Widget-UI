@@ -93,7 +93,7 @@ code {
 @media screen and (max-width: 850px){
   p, li, a{
     font-size: 13px;
-    line-height: 20px;
+    line-height: 19px;
   }
 
   .chat-typing-indicator span.dot {
