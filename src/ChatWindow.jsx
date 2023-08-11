@@ -5,7 +5,7 @@ import Header from './components/Header.jsx';
 import Input from './components/Input.jsx';
 import axios from 'axios';
 
-const ChatWindow = ({ iframeDomain }) => {
+const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   let site = window.location.origin;
   let assetUrl = 'https://studio.brainstormer.io';
@@ -13,7 +13,7 @@ const ChatWindow = ({ iframeDomain }) => {
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [domain, setDomain] = useState(iframeDomain);
-  const [botId, setBotId] = useState('');
+  const [botId, setBotId] = useState(botApiId);
   const [bot, setBot] = useState({
     name: '',
     description: "",
@@ -40,13 +40,6 @@ const ChatWindow = ({ iframeDomain }) => {
   }, [messages]);
 
   useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    // const domain = urlParams?.get("domain");
-    const botId = urlParams?.get("bot");
-
-    setBotId(botId);
-
     axios({
       url: `https://botnew.brainstormer.io/bot_by_id/bot_${botId}`,
       method: 'POST',
