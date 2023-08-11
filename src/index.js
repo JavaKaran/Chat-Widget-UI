@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import ChatWindow from './ChatWindow';
@@ -6,28 +6,42 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-let verifiedSite = false;
-let allowedDomains = ['demo.noesis.dev', 'chat-widget-plum.vercel.app']
-let iframeDomain;
+let allowedDomains = ['demo.noesis.dev', 'chat-widget-plum.vercel.app'];
+
+const App = () => {
+  const [verified, setVerified] = useState(false);
+  const [iframeDomain, setIframeDomain] = useState(null);
+
+  const handlePostMessage = (event) => {
+    if (allowedDomains.includes(event.origin)) {
+      setIframeDomain(event.data);
+      setVerified(true);
+    } else {
+      console.log("Origin not allowed:", event.origin);
+    }
+  };
+
+  // Attach the event listener on component mount
+  React.useEffect(() => {
+    window.addEventListener('message', handlePostMessage);
+    return () => {
+      window.removeEventListener('message', handlePostMessage);
+    };
+  }, []);
+
+  return (
+    <React.StrictMode>
+      {verified && <ChatWindow iframeDomain={iframeDomain} /> }
+    </React.StrictMode>
+  );
+}
+
 
 // const queryString = window.location.search;
 // const urlParams = new URLSearchParams(queryString);
 // const domain = urlParams?.get("domain");
 
-window.addEventListener('message', (event) => {
-  // Check the origin of the event to ensure it's from an allowed domain
-  console.log(event.data, typeof(event.data));
-  if (allowedDomains.includes(event.origin)) {
-    verifiedSite = true;
-    iframeDomain = event.data;
-  }
-});
-
-root.render(
-  <React.StrictMode>
-    {verifiedSite && <ChatWindow iframeDomain={iframeDomain} />}
-  </React.StrictMode>
-);
+root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
