@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-let allowedDomains = ['demo.noesis.dev', 'chat-widget-plum.vercel.app'];
+let allowedDomains = ['https://demo.noesis.dev', 'https://chat-widget-plum.vercel.app'];
 
 const App = () => {
   const [verified, setVerified] = useState(false);
@@ -16,6 +16,7 @@ const App = () => {
     if (allowedDomains.includes(event.origin)) {
       setIframeDomain(event.data);
       setVerified(true);
+      console.log("Origins allowed")
     } else {
       console.log("Origin not allowed:", event.origin);
     }
