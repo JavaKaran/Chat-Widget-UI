@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let verifiedSite;
 let sites = ['demo.noesis.dev', 'chat-widget-plum.vercel.app']
-let domain;
+let iframeDomain;
 
 // const queryString = window.location.search;
 // const urlParams = new URLSearchParams(queryString);
@@ -18,13 +18,13 @@ window.addEventListener('message', (event) => {
   // Check the origin of the event to ensure it's from an allowed domain
   if (sites.include(event.origin)) {
     verifiedSite = true;
-    domain = event.data;
+    iframeDomain = event.data;
   }
 });
 
 root.render(
   <React.StrictMode>
-    {verifiedSite && <ChatWindow domain={domain} />}
+    {verifiedSite && <ChatWindow iframeDomain={iframeDomain} />}
   </React.StrictMode>
 );
 

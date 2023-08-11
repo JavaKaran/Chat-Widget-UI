@@ -5,14 +5,14 @@ import Header from './components/Header.jsx';
 import Input from './components/Input.jsx';
 import axios from 'axios';
 
-const ChatWindow = ({ domain }) => {
+const ChatWindow = ({ iframeDomain }) => {
 
   let site = window.location.origin;
   let assetUrl = 'https://studio.brainstormer.io';
 
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
-  const [domain, setDomain] = useState(domain);
+  const [domain, setDomain] = useState(iframeDomain);
   const [botId, setBotId] = useState('');
   const [bot, setBot] = useState({
     name: '',
