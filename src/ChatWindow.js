@@ -7,7 +7,9 @@ import axios from 'axios';
 
 const ChatWindow = () => {
 
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {sender: 'user', text: '`demo` code is this coming'}
+  ]);
   const [isTyping, setIsTyping] = useState(false);
   const [domain, setDomain] = useState('');
   const [bot, setBot] = useState({

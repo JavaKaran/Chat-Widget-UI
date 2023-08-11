@@ -33,7 +33,7 @@ const Message = ({ sender, text }) => {
           children={children}
         />
       ) : (
-        <code className={className} {...props} />
+        <code className={className} {...props} children={children} />
       )
     },
   }
@@ -42,7 +42,7 @@ const Message = ({ sender, text }) => {
     <div className="chat-message my-[5px] sm:my-2">
       <div className={`flex items-end ${sender === 'user' ? 'justify-end' : ''}`}>
         <div className={`flex flex-col  max-w-[80%] sm:max-w-[70%] mx-2 order-${sender === 'user' ? '1' : 'last'} items-${sender === 'user' ? 'end' : 'start'}`}>
-          <div className={`py-2 px-3 rounded-xl w-full ${sender === 'user' && 'whitespace-pre-wrap'} break-words ${roundedClass} ${bgColor} ${textColor}`}>
+          <div className={`py-2 px-3 rounded-xl w-full ${sender === 'user' && 'whitespace-pre-wrap'} break-words ${roundedClass} ${bgColor} ${textColor} ${sender}`}>
             <ReactMarkdown
               components={MarkdownComponents}
               className='markdown-text'

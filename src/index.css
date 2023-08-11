@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+.markdown-text{
+  line-height: 21px;
+}
+
+.bot .markdown-text code {
+  background-color: rgba(110,118,129,0.4);
+  color: inherit;
+}
+
+.markdown-text code {
+  background-color: #9596ea;
+  color: #fff;
+  padding: 0.2em 0.4em;
+  white-space: break-spaces;
+  border-radius: 6px;
+}
+
 .markdown-text p,pre {
   margin: 0;
 }
@@ -76,7 +93,7 @@ code {
 @media screen and (max-width: 850px){
   p, li, a{
     font-size: 13px;
-    line-height: 18px;
+    line-height: 20px;
   }
 
   .chat-typing-indicator span.dot {
