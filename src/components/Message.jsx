@@ -39,6 +39,11 @@ const Message = ({ sender, text, image }) => {
     a({ node, ...props }) {
       return <a target="_blank" {...props} />;
     },
+    table({ node, ...props }) {
+      return (
+        <table className="custom-table" {...props} />
+      );
+    },
   }
 
   return (
