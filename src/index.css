@@ -27,6 +27,10 @@
   margin-top: 0;
 }
 
+.markdown-text > table{
+  margin-bottom: 0;
+}
+
 .rotate-90 {
   transform: rotate(90deg);
 }
