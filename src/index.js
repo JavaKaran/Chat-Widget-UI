@@ -39,8 +39,8 @@ const App = () => {
   console.log("window.self", window.self)
   console.log("window.top", window.top)
 
-  console("check 1 parent", window === window.parent)
-  console("check 2 self", window.self === window.top)
+  console.log("check 1 parent", window === window.parent)
+  console.log("check 2 self", window.self === window.top)
 
   return (
     <React.StrictMode>
