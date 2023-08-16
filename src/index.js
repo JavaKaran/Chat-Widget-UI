@@ -14,16 +14,6 @@ const App = () => {
   const botId = urlParams?.get("bot");
   const iframeDomain = urlParams?.get("domain");
 
-  // const handlePostMessage = (event) => {
-  //   if (allowedDomains.includes(event.origin)) {
-  //     setIframeDomain(event.data);
-  //     // console.log("Origins allowed")
-  //   } else {
-  //     console.log("Origin not allowed:", event.origin);
-  //   }
-  // };
-  
-  // Attach the event listener on component mount
   useEffect(() => {
     const parentWindow = window.parent;
     
@@ -32,16 +22,8 @@ const App = () => {
     if(isInsideIframe){
       setVerified(true);
     }
-    
+
   }, []);
-
-  // console.log("window", window)
-  // console.log("window.parent", window.parent)
-  // console.log("window.self", window.self)
-  // console.log("window.top", window.top)
-
-  // console.log("check 1 parent", window === window.parent)
-  // console.log("check 2 self", window.self === window.top)
 
   return (
     <React.StrictMode>
@@ -49,11 +31,6 @@ const App = () => {
     </React.StrictMode>
   );
 }
-
-
-// const queryString = window.location.search;
-// const urlParams = new URLSearchParams(queryString);
-// const domain = urlParams?.get("domain");
 
 root.render(<App />);
 
