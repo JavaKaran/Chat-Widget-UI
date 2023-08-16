@@ -37,7 +37,6 @@ const Message = ({ sender, text, image }) => {
       )
     },
     a({ node, ...props }) {
-      // Add target="_blank" to anchor tags
       return <a target="_blank" {...props} />;
     },
   }
