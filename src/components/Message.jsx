@@ -42,7 +42,9 @@ const Message = ({ sender, text, image }) => {
     },
     table({ node, ...props }) {
       return (
-        <table className="table table-bordered" {...props} />
+        <div className='table-responsive'>
+          <table className="table table-bordered" {...props} />
+        </div>
       );
     },
   }
@@ -54,7 +56,7 @@ const Message = ({ sender, text, image }) => {
           <div className={`py-2 px-3 rounded-xl w-full ${sender === 'user' && 'whitespace-pre-wrap'} break-words ${roundedClass} ${bgColor} ${textColor} ${sender}`}>
             <ReactMarkdown
               components={MarkdownComponents}
-              className='markdown-text table-responsive'
+              className='markdown-text'
               remarkPlugins={[remarkGfm]}
             >
               {text}
