@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import javascript from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
 import python from 'react-syntax-highlighter/dist/cjs/languages/prism/python';
@@ -54,6 +55,7 @@ const Message = ({ sender, text, image }) => {
             <ReactMarkdown
               components={MarkdownComponents}
               className='markdown-text'
+              remarkPlugins={[remarkGfm]}
             >
               {text}
             </ReactMarkdown>
