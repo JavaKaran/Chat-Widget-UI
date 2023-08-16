@@ -36,6 +36,10 @@ const Message = ({ sender, text, image }) => {
         <code className={className} {...props} children={children} />
       )
     },
+    a({ node, ...props }) {
+      // Add target="_blank" to anchor tags
+      return <a target="_blank" {...props} />;
+    },
   }
 
   return (
