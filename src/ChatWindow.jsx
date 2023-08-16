@@ -19,6 +19,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
     description: "",
     image: `${site}/background.png`
   });
+  const [disabled, setDisabled] = useState(true);
 
   const textAreaRef = useRef();
   const messageListRef = useRef();
@@ -60,6 +61,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
             description: bot.Description ? bot.Description : "Let's Brainstorm the future!",
             image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`
           })
+          setDisabled(false);
           setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: bot.WelcomeMessage }]);
         }
       })
@@ -104,7 +106,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
         ))}
         {isTyping && <Typing image={bot.image} />}
       </div>
-      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} />
+      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} />
     </div>
   );
 }
