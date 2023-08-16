@@ -94,7 +94,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   return (
     <div className="flex-1 justify-between flex flex-col h-screen">
       <Header bot={bot} />
-      <div id="message-list" ref={messageListRef} className="flex flex-col h-full px-[10px] py-3 sm:p-6 overflow-y-auto">
+      <div id="message-list" ref={messageListRef} className="flex flex-col h-full pl-[10px] pr-0 py-3 sm:p-6 overflow-y-auto">
         {messages.map((message, index) => (
           <Message
             key={index}
