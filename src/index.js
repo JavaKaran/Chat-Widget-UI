@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import ChatWindow from './ChatWindow';
@@ -6,41 +6,43 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-let allowedDomains = process.env.REACT_APP_ALLOWED_DOMAINS?.split(',');
-
 const App = () => {
   const [verified, setVerified] = useState(false);
-  const [iframeDomain, setIframeDomain] = useState(null);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const botId = urlParams?.get("bot");
+  const iframeDomain = urlParams?.get("domain");
 
-  const handlePostMessage = (event) => {
-    if (allowedDomains.includes(event.origin)) {
-      setIframeDomain(event.data);
-      setVerified(true);
-      // console.log("Origins allowed")
-    } else {
-      console.log("Origin not allowed:", event.origin);
-    }
-  };
-
+  // const handlePostMessage = (event) => {
+  //   if (allowedDomains.includes(event.origin)) {
+  //     setIframeDomain(event.data);
+  //     // console.log("Origins allowed")
+  //   } else {
+  //     console.log("Origin not allowed:", event.origin);
+  //   }
+  // };
+  
   // Attach the event listener on component mount
-  React.useEffect(() => {
-    window.addEventListener('message', handlePostMessage);
-    return () => {
-      window.removeEventListener('message', handlePostMessage);
-    };
+  useEffect(() => {
+    const parentWindow = window.parent;
+    
+    const iframeContainer = parentWindow.document.querySelector('#iframe-container');
+    
+    const isInsideIframe = window !== parentWindow;
+    
+    if(iframeContainer && isInsideIframe){
+      setVerified(true);
+    }
   }, []);
 
-  console.log("window", window)
-  console.log("window.parent", window.parent)
-  console.log("window.self", window.self)
-  console.log("window.top", window.top)
+  // console.log("window", window)
+  // console.log("window.parent", window.parent)
+  // console.log("window.self", window.self)
+  // console.log("window.top", window.top)
 
-  console.log("check 1 parent", window === window.parent)
-  console.log("check 2 self", window.self === window.top)
+  // console.log("check 1 parent", window === window.parent)
+  // console.log("check 2 self", window.self === window.top)
 
   return (
     <React.StrictMode>
