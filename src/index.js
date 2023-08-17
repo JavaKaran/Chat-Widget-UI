@@ -22,6 +22,7 @@ const App = () => {
   const isInsideIframe = window !== parentWindow;
 
   const messageIncoming = (e) => {
+    console.log("e.data", e, e.data)
     console.log("condition 1", allowedDomains.includes(e.origin) )
     console.log("condition 2", e.origin.includes(e.data) )
 
