@@ -17,40 +17,31 @@ const App = () => {
   const urlParams = new URLSearchParams(queryString);
   const botId = urlParams?.get("bot");
 
-  const parentWindow = window.parent;
+  // const parentWindow = window.parent;
   
-  const isInsideIframe = window !== parentWindow;
+  // const isInsideIframe = window !== parentWindow;
 
-  const messageIncoming = (e) => {
-    console.log("e.data", e, e.data)
-    console.log("condition 1", allowedDomains.includes(e.origin) )
-    console.log("condition 2", e.origin.includes(e.data) )
-
-    let data = e.data;
-
-    if(allowedDomains.includes(e.origin) && e.origin.includes(data)){
-      setIframeDomain(data);
-      setSameOrigin(true);
-      console.log("set data");
+  const handlePostMessage = (event) => {
+    if (allowedDomains.includes(event.origin)) {
+      setIframeDomain(event.data);
+      setVerified(true);
+      // console.log("Origins allowed")
     } else {
-      console.log("Origin not allowed:", e.origin);
+      console.log("Origin not allowed:", event.origin);
     }
-
-    console.log("domain", iframeDomain)
-  }
+  };
 
   useEffect(() => {
     
-    if(isInsideIframe && sameOrigin){
+      // if(isInsideIframe && sameOrigin){
 
-      setVerified(true);
-    }
+      //   setVerified(true);
+      // }
 
-    window.addEventListener("message", messageIncoming);
-
+    window.addEventListener('message', handlePostMessage);
     return () => {
-      window.removeEventListener('message', messageIncoming);
-    }
+      window.removeEventListener('message', handlePostMessage);
+    };
 
   }, []);
 
