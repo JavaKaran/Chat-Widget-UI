@@ -19,11 +19,11 @@ const App = () => {
 
   const handlePostMessage = (event) => {
 
-    if (allowedDomains.includes(event.origin) && event.origin.includes(event.data)) {
+    if (allowedDomains.includes(event.origin)) {
 
       setIframeDomain(event.data);
       setSameOrigin(true);
-      
+
     } else {
       console.log("Origin not allowed:", event.origin);
     }
