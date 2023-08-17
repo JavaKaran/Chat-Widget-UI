@@ -22,9 +22,13 @@ const App = () => {
   const isInsideIframe = window !== parentWindow;
 
   const messageIncoming = (e) => {
+    console.log("condition 1", allowedDomains.includes(e.origin) )
+    console.log("condition 2", e.origin.includes(e.data) )
+
     if(allowedDomains.includes(e.origin) && e.origin.includes(e.data)){
       setIframeDomain(e.data);
       setSameOrigin(true);
+      console.log("set data");
     } else {
       console.log("Origin not allowed:", e.origin);
     }
@@ -33,6 +37,7 @@ const App = () => {
   useEffect(() => {
     
     if(isInsideIframe && sameOrigin){
+      
       setVerified(true);
     }
 
