@@ -14,6 +14,11 @@ const App = () => {
   const botId = urlParams?.get("bot");
   const iframeDomain = urlParams?.get("domain");
 
+  const messageIncoming = (e) => {
+    console.log("hello")
+    console.log("message incoming", e.data);
+  }
+
   useEffect(() => {
     const parentWindow = window.parent;
     
@@ -21,6 +26,12 @@ const App = () => {
     
     if(isInsideIframe){
       setVerified(true);
+    }
+
+    window.addEventListener("message", messageIncoming);
+
+    return () => {
+      window.removeEventListener('message', messageIncoming);
     }
 
   }, []);
