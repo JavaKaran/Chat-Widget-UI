@@ -25,7 +25,7 @@ const App = () => {
     console.log("condition 1", allowedDomains.includes(e.origin) )
     console.log("condition 2", e.origin.includes(e.data) )
 
-    if(allowedDomains.includes(e.origin) && e.origin.includes(e.data)){
+    if(allowedDomains.includes(e.origin)){
       setIframeDomain(e.data);
       setSameOrigin(true);
       console.log("set data");
@@ -37,7 +37,7 @@ const App = () => {
   useEffect(() => {
     
     if(isInsideIframe && sameOrigin){
-      
+
       setVerified(true);
     }
 
@@ -48,6 +48,8 @@ const App = () => {
     }
 
   }, []);
+
+  console.log("domain", iframeDomain)
 
   return (
     <React.StrictMode>
