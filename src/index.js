@@ -6,25 +6,33 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+let allowedDomains = process.env.REACT_APP_ALLOWED_DOMAINS?.split(',');
+
 const App = () => {
   const [verified, setVerified] = useState(false);
+  const [iframeDomain, setIframeDomain] = useState(null);
+  const [sameOrigin, setSameOrigin] = useState(false);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const botId = urlParams?.get("bot");
-  const iframeDomain = urlParams?.get("domain");
+
+  const parentWindow = window.parent;
+  
+  const isInsideIframe = window !== parentWindow;
 
   const messageIncoming = (e) => {
-    console.log("hello")
-    console.log("message incoming", e.data, e.origin);
+    if(allowedDomains.includes(e.origin) && e.origin.includes(e.data)){
+      setIframeDomain(e.data);
+      setSameOrigin(true);
+    } else {
+      console.log("Origin not allowed:", e.origin);
+    }
   }
 
   useEffect(() => {
-    const parentWindow = window.parent;
     
-    const isInsideIframe = window !== parentWindow;
-    
-    if(isInsideIframe){
+    if(isInsideIframe && sameOrigin){
       setVerified(true);
     }
 
