@@ -17,26 +17,28 @@ const App = () => {
   const urlParams = new URLSearchParams(queryString);
   const botId = urlParams?.get("bot");
 
-  // const parentWindow = window.parent;
-  
-  // const isInsideIframe = window !== parentWindow;
-
   const handlePostMessage = (event) => {
-    if (allowedDomains.includes(event.origin)) {
+
+    if (allowedDomains.includes(event.origin) && event.origin.includes(event.data)) {
+
       setIframeDomain(event.data);
-      setVerified(true);
-      // console.log("Origins allowed")
+      setSameOrigin(true);
+      
     } else {
       console.log("Origin not allowed:", event.origin);
     }
+
   };
 
   useEffect(() => {
-    
-      // if(isInsideIframe && sameOrigin){
 
-      //   setVerified(true);
-      // }
+    const parentWindow = window.parent;
+  
+    const isInsideIframe = window !== parentWindow;
+    
+    if(isInsideIframe && sameOrigin){
+      setVerified(true);
+    }
 
     window.addEventListener('message', handlePostMessage);
     return () => {
