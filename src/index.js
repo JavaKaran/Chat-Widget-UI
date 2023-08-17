@@ -32,6 +32,8 @@ const App = () => {
     } else {
       console.log("Origin not allowed:", e.origin);
     }
+
+    console.log("domain", iframeDomain)
   }
 
   useEffect(() => {
@@ -48,8 +50,6 @@ const App = () => {
     }
 
   }, []);
-
-  console.log("domain", iframeDomain)
 
   return (
     <React.StrictMode>
