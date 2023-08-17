@@ -16,7 +16,7 @@ const App = () => {
 
   const messageIncoming = (e) => {
     console.log("hello")
-    console.log("message incoming", e.data);
+    console.log("message incoming", e.data, e.origin);
   }
 
   useEffect(() => {
