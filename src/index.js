@@ -22,7 +22,7 @@ const App = () => {
     if (allowedDomains.includes(event.origin)) {
 
       setIframeDomain(event.data);
-      setSameOrigin(true);
+      setVerified(true);
 
     } else {
       console.log("Origin not allowed:", event.origin);
@@ -32,13 +32,13 @@ const App = () => {
 
   useEffect(() => {
 
-    const parentWindow = window.parent;
+    // const parentWindow = window.parent;
   
-    const isInsideIframe = window !== parentWindow;
+    // const isInsideIframe = window !== parentWindow;
     
-    if(isInsideIframe && sameOrigin){
-      setVerified(true);
-    }
+    // if(isInsideIframe && sameOrigin){
+    //   setVerified(true);
+    // }
 
     window.addEventListener('message', handlePostMessage);
     return () => {
