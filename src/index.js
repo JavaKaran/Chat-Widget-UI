@@ -11,7 +11,6 @@ let allowedDomains = process.env.REACT_APP_ALLOWED_DOMAINS?.split(',');
 const App = () => {
   const [verified, setVerified] = useState(false);
   const [iframeDomain, setIframeDomain] = useState(null);
-  const [sameOrigin, setSameOrigin] = useState(false);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -31,14 +30,6 @@ const App = () => {
   };
 
   useEffect(() => {
-
-    // const parentWindow = window.parent;
-  
-    // const isInsideIframe = window !== parentWindow;
-    
-    // if(isInsideIframe && sameOrigin){
-    //   setVerified(true);
-    // }
 
     window.addEventListener('message', handlePostMessage);
     return () => {
