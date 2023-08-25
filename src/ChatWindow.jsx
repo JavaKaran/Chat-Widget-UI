@@ -20,6 +20,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
     image: `${site}/background.png`
   });
   const [disabled, setDisabled] = useState(true);
+  const [noWelcomeMessage, setNoWelcomeMessage] = useState(false);
 
   const textAreaRef = useRef();
   const messageListRef = useRef();
@@ -62,13 +63,17 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
             image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`
           })
           setDisabled(false);
-          setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: bot.WelcomeMessage }]);
+          {bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: bot.WelcomeMessage }]) : setNoWelcomeMessage(true)}
         }
       })
       .catch((err) => {
         console.log(err);
       })
   }, []);
+
+  useEffect(() => {
+    sendMessage();
+  }, [noWelcomeMessage])
 
   const sendMessage = (text) => {
     axios({

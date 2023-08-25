@@ -35,6 +35,16 @@ table{
   margin: 10px 0;
 }
 
+th {
+  font-size: 15px;
+  line-height: 20px;
+} 
+
+td {
+  font-size: 13px;
+  line-height: 18px;
+}
+
 .markdown-text > table:first-child{
   margin-bottom: 0;
 }
