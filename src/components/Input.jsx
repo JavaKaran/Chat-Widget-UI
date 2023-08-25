@@ -46,7 +46,7 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
             <div className="relative flex justify-around">
                 <textarea 
                     placeholder="Write your message!" 
-                    className="w-[90%] border-none focus:placeholder-gray-400 placeholder-gray-600 text-black outline-none bg-[#f1f1f1] rounded-md px-2 py-[10px] sm:p-4 resize-none text-[13px] leading-[17px] sm:text-sm message-input " 
+                    className="w-[90%] border-none focus:placeholder-gray-400 focus:text-[16px] placeholder-gray-600 text-black outline-none bg-[#f1f1f1] rounded-md px-2 py-[10px] sm:p-4 resize-none text-[13px] leading-[17px] sm:text-sm message-input " 
                     ref={textAreaRef} 
                     onKeyDown={handleKeyDown}
                     rows={'1'}
