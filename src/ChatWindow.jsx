@@ -72,8 +72,10 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   }, []);
 
   useEffect(() => {
-    setIsTyping(true);
-    sendMessage();
+    if(noWelcomeMessage){
+      setIsTyping(true);
+      sendMessage();
+    }
   }, [noWelcomeMessage])
 
   const sendMessage = (text) => {
@@ -92,6 +94,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
         if (response.data.status === 'success') {
           setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: response.data.message }]);
           setIsTyping(false);
+          setNoWelcomeMessage(false);
         }
       })
       .catch((err) => {
