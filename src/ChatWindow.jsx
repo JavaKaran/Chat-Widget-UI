@@ -72,6 +72,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   }, []);
 
   useEffect(() => {
+    setIsTyping(true);
     sendMessage();
   }, [noWelcomeMessage])
 
