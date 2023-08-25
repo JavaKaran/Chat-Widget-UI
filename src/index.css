@@ -72,6 +72,12 @@ code {
   margin: 20px 0 !important;
 }
 
+@media screen and (max-width: 500px){
+  .mobile-focus-text:focus{
+    font-size: 16px !important;
+  }
+}
+
 .codeStyle::-webkit-scrollbar {
   display: none;
 }
