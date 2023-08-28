@@ -73,7 +73,6 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   useEffect(() => {
     if(noWelcomeMessage){
-      setIsTyping(true);
       setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: 'Welcome my master. Your message is my command!' }]);
       setNoWelcomeMessage(false);
     }
