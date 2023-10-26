@@ -4,6 +4,7 @@ import Typing from './components/TypingIndicator.jsx';
 import Header from './components/Header.jsx';
 import Input from './components/Input.jsx';
 import axios from 'axios';
+import Report from './Report.jsx';
 
 const ChatWindow = ({ iframeDomain, botApiId }) => {
 
@@ -18,10 +19,12 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   const [bot, setBot] = useState({
     name: '',
     description: "",
-    image: `${site}/background.png`
+    image: `${site}/background.png`,
+    primaryColor: '#912d2a'
   });
   const [disabled, setDisabled] = useState(true);
   const [noWelcomeMessage, setNoWelcomeMessage] = useState(false);
+  const [showReport, setShowReport] = useState(false);
 
   const textAreaRef = useRef();
   const messageListRef = useRef();
@@ -61,7 +64,8 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
           setBot({
             name: bot.Name ? bot.Name : "Brainstormer",
             description: bot.Description ? bot.Description : "Let's Brainstorm the future!",
-            image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`
+            image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`,
+            primaryColor: '#912d2a'
           })
           setDisabled(false);
           { bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: bot.WelcomeMessage }]) : setNoWelcomeMessage(true) }
@@ -104,7 +108,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   }
 
   return (
-    <div className="flex-1 justify-between flex flex-col h-screen">
+    <div className="flex-1 justify-between flex flex-col h-screen relative">
       <Header bot={bot} />
       <div id="message-list" ref={messageListRef} className="flex flex-col h-full pl-[10px] pr-0 py-3 sm:p-6 overflow-y-auto">
         {messages.map((message, index) => (
@@ -112,11 +116,15 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
             key={index}
             sender={message.sender}
             text={message.text}
-            image={bot.image} />
+            image={bot.image} 
+            primaryColor={bot.primaryColor}
+            setShowReport={setShowReport}
+            />
         ))}
-        {isTyping && <Typing image={bot.image} />}
+        {isTyping && <Typing image={bot.image} primaryColor={bot.primaryColor} />}
       </div>
-      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} />
+      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primaryColor={bot.primaryColor} />
+      {showReport && <Report setShowReport={setShowReport} />}
     </div>
   );
 }

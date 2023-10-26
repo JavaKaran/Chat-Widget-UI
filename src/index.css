@@ -102,7 +102,7 @@ code {
   width: 8px;
   margin: 0 3px;
   float: left;
-  background-color: #2C2D98;
+  /* background-color: #2C2D98; */
   display: block;
   border-radius: 50%;
   opacity: 0.2;
@@ -160,4 +160,8 @@ code {
 .message-input:empty:before {
   content:attr(placeholder);
   color: gray;
+}
+
+.rotate180{
+  transform: rotate(180deg);
 }
