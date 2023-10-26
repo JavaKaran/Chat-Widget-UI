@@ -13,6 +13,32 @@ SyntaxHighlighter.registerLanguage('markdown', markdown);
 
 const Message = ({ sender, text, image }) => {
 
+  let citations = [
+    {
+      start: 2,
+      end: 8,
+      document_ids: [
+        "web-search_1",
+        "web-search_8"
+      ]
+    },
+    {
+      start: 10,
+      end: 12,
+      document_ids: [
+        "web-search_1"
+      ]
+    },
+    {
+      start: 15,
+      end: 22,
+      document_ids: [
+        "web-search_1",
+        "web-search_8"
+      ]
+    }
+  ];
+
   const textColor = sender === 'user' ? 'text-white' : 'text-gray-600';
   const bgColor = sender === 'user' ? 'bg-[#2c2d98]' : 'bg-gray-300';
   const roundedClass = sender === 'user' ? 'rounded-br-none' : 'rounded-bl-none';
@@ -46,7 +72,14 @@ const Message = ({ sender, text, image }) => {
           <table className="table table-bordered" {...props} />
         </div>
       );
-    },
+    }
+  }
+
+  function generateMarkdownWithHighlights(text) {
+    console.log("text",text);
+    const highlightedText = `<span class="hi">${text}</span>`;
+
+    return highlightedText;
   }
 
   return (
@@ -59,7 +92,7 @@ const Message = ({ sender, text, image }) => {
               className='markdown-text'
               remarkPlugins={[remarkGfm]}
             >
-              {text}
+              {generateMarkdownWithHighlights(text)}
             </ReactMarkdown>
           </div>
         </div>

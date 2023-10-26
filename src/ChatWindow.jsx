@@ -8,7 +8,8 @@ import axios from 'axios';
 const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   let site = window.location.origin;
-  let assetUrl = 'https://studio.brainstormer.io';
+  let assetUrl = process.env.REACT_APP_ASSETS_URL;
+  const apiURL = process.env.REACT_APP_API_URL;
 
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -43,7 +44,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   useEffect(() => {
     axios({
-      url: `https://botnew.brainstormer.io/bot_by_id/bot_${botId}`,
+      url: `${apiURL}/bot_by_id/bot_${botId}`,
       method: 'POST',
       data: {
         domain: domain
@@ -54,7 +55,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
     })
       .then((response) => {
         // console.log(response);
-        if(response.status === 200 && response.data.data.length > 0){
+        if (response.status === 200 && response.data.data.length > 0) {
           let bot = response?.data?.data[0]?.attributes;
           let botImage = bot?.ProfileImage?.data?.attributes?.url;
           setBot({
@@ -63,7 +64,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
             image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`
           })
           setDisabled(false);
-          {bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: bot.WelcomeMessage }]) : setNoWelcomeMessage(true)}
+          { bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: bot.WelcomeMessage }]) : setNoWelcomeMessage(true) }
         }
       })
       .catch((err) => {
@@ -72,7 +73,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   }, []);
 
   useEffect(() => {
-    if(noWelcomeMessage){
+    if (noWelcomeMessage) {
       setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: 'Welcome my master. Your message is my command!' }]);
       setNoWelcomeMessage(false);
     }
@@ -80,7 +81,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   const sendMessage = (text) => {
     axios({
-      url: `https://botnew.brainstormer.io/widget_handler`,
+      url: `${apiURL}/widget_handler`,
       method: 'POST',
       data: {
         "query": text ? text : 'hi, who are you and how can you help me?',
@@ -110,7 +111,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
           <Message
             key={index}
             sender={message.sender}
-            text={message.text} 
+            text={message.text}
             image={bot.image} />
         ))}
         {isTyping && <Typing image={bot.image} />}
