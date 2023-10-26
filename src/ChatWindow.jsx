@@ -4,11 +4,13 @@ import Typing from './components/TypingIndicator.jsx';
 import Header from './components/Header.jsx';
 import Input from './components/Input.jsx';
 import axios from 'axios';
+import Report from './Report.jsx';
 
 const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   let site = window.location.origin;
-  let assetUrl = 'https://studio.brainstormer.io';
+  let assetUrl = process.env.REACT_APP_ASSETS_URL;
+  const apiURL = process.env.REACT_APP_API_URL;
 
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -17,10 +19,12 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   const [bot, setBot] = useState({
     name: '',
     description: "",
-    image: `${site}/background.png`
+    image: `${site}/background.png`,
+    primaryColor: '#912d2a'
   });
   const [disabled, setDisabled] = useState(true);
   const [noWelcomeMessage, setNoWelcomeMessage] = useState(false);
+  const [showReport, setShowReport] = useState(false);
 
   const textAreaRef = useRef();
   const messageListRef = useRef();
@@ -43,7 +47,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   useEffect(() => {
     axios({
-      url: `https://botnew.brainstormer.io/bot_by_id/bot_${botId}`,
+      url: `${apiURL}/bot_by_id/bot_${botId}`,
       method: 'POST',
       data: {
         domain: domain
@@ -54,16 +58,17 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
     })
       .then((response) => {
         // console.log(response);
-        if(response.status === 200 && response.data.data.length > 0){
+        if (response.status === 200 && response.data.data.length > 0) {
           let bot = response?.data?.data[0]?.attributes;
           let botImage = bot?.ProfileImage?.data?.attributes?.url;
           setBot({
             name: bot.Name ? bot.Name : "Brainstormer",
             description: bot.Description ? bot.Description : "Let's Brainstorm the future!",
-            image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`
+            image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`,
+            primaryColor: '#912d2a'
           })
           setDisabled(false);
-          {bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: bot.WelcomeMessage }]) : setNoWelcomeMessage(true)}
+          { bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: bot.WelcomeMessage }]) : setNoWelcomeMessage(true) }
         }
       })
       .catch((err) => {
@@ -72,7 +77,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   }, []);
 
   useEffect(() => {
-    if(noWelcomeMessage){
+    if (noWelcomeMessage) {
       setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: 'Welcome my master. Your message is my command!' }]);
       setNoWelcomeMessage(false);
     }
@@ -80,7 +85,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   const sendMessage = (text) => {
     axios({
-      url: `https://botnew.brainstormer.io/widget_handler`,
+      url: `${apiURL}/widget_handler`,
       method: 'POST',
       data: {
         "query": text ? text : 'hi, who are you and how can you help me?',
@@ -103,19 +108,23 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   }
 
   return (
-    <div className="flex-1 justify-between flex flex-col h-screen">
+    <div className="flex-1 justify-between flex flex-col h-screen relative">
       <Header bot={bot} />
       <div id="message-list" ref={messageListRef} className="flex flex-col h-full pl-[10px] pr-0 py-3 sm:p-6 overflow-y-auto">
         {messages.map((message, index) => (
           <Message
             key={index}
             sender={message.sender}
-            text={message.text} 
-            image={bot.image} />
+            text={message.text}
+            image={bot.image} 
+            primaryColor={bot.primaryColor}
+            setShowReport={setShowReport}
+            />
         ))}
-        {isTyping && <Typing image={bot.image} />}
+        {isTyping && <Typing image={bot.image} primaryColor={bot.primaryColor} />}
       </div>
-      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} />
+      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primaryColor={bot.primaryColor} />
+      {showReport && <Report setShowReport={setShowReport} />}
     </div>
   );
 }

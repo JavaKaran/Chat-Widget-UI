@@ -40,7 +40,11 @@ const App = () => {
 
   return (
     <React.StrictMode>
+      {/* for deployed site */}
       {verified && botId && botId !== "null" && <ChatWindow iframeDomain={iframeDomain} botApiId={botId} /> }
+
+      {/* for local site */}
+      {/* {<ChatWindow iframeDomain={iframeDomain} botApiId='' /> } */}
     </React.StrictMode>
   );
 }
