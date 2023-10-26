@@ -88,13 +88,13 @@ code {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #2c2d98;
+  background: #912d21;
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #5658d8;
+  background: #912d2a;
 }
 
 .chat-typing-indicator span.dot {
