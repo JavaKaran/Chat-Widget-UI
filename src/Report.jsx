@@ -29,7 +29,7 @@ const Report = ({ setShowReport }) => {
             <div className="flex p-3 h-[10vh] cursor-pointer">
                 <img src="/assets/images/back-icon.svg" width={16} height={16} alt="Back" onClick={handleBack} />
             </div>
-            <div className="w-full md:w-1/2 mx-auto bg-white p-2 border rounded-t-2xl min-h-[18vh]">
+            <div className="w-full md:w-1/2 mx-auto bg-white p-2 border rounded-t-2xl min-h-[90vh]">
                 {!submitted ? (
                     <div className="flex justify-between items-start flex-col h-full">
                         <div>

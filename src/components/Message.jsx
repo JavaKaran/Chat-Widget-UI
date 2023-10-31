@@ -104,7 +104,7 @@ const Message = ({ sender, text, image, primaryColor, setShowReport, handleMessa
             >
               {text}
             </ReactMarkdown>
-            {sender !== 'user' && (<div className='w-full flex pt-2 justify-end' onClick={handleMessageMenu}>
+            {sender !== 'user' && (<div className='w-full flex pt-2 justify-end cursor-pointer' onClick={handleMessageMenu}>
               <svg width="16" height="6" viewBox="0 0 17 3" fill={primaryColor} xmlns="http://www.w3.org/2000/svg">
                 <circle cx="1.5" cy="1.5" r="1.5" />
                 <circle cx="8.5" cy="1.5" r="1.5" />
