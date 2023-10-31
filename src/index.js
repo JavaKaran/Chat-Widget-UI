@@ -10,7 +10,7 @@ let allowedDomains = process.env.REACT_APP_ALLOWED_DOMAINS?.split(',');
 
 const App = () => {
   const [verified, setVerified] = useState(false);
-  const [iframeDomain, setIframeDomain] = useState(null);
+  const [iframeDomain, setIframeDomain] = useState('demo.noesis.dev');
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -41,10 +41,10 @@ const App = () => {
   return (
     <React.StrictMode>
       {/* for deployed site */}
-      {verified && botId && botId !== "null" && <ChatWindow iframeDomain={iframeDomain} botApiId={botId} /> }
+      {/* {verified && botId && botId !== "null" && <ChatWindow iframeDomain={iframeDomain} botApiId={botId} /> } */}
 
       {/* for local site */}
-      {/* {<ChatWindow iframeDomain={iframeDomain} botApiId='' /> } */}
+      {<ChatWindow iframeDomain={iframeDomain} botApiId='abb82836_bf04_4dd6_9fc1_b16d11e68a5f' /> }
     </React.StrictMode>
   );
 }

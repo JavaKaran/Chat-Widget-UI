@@ -79,6 +79,7 @@ code {
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
+  display: none;
 }
 
 /* Track */
@@ -164,4 +165,20 @@ code {
 
 .rotate180{
   transform: rotate(180deg);
+}
+
+.show-menu { 
+  transform: translateY(100px);
+}
+
+.hide-menu { 
+  transform: translateY(-100%);
+}
+
+.showMenu{
+  transform: translateY(0);
+}
+
+.hideMenu{
+  transform: translateY(100%);
 }

@@ -11,7 +11,7 @@ SyntaxHighlighter.registerLanguage('python', python);
 SyntaxHighlighter.registerLanguage('javascript', javascript);
 SyntaxHighlighter.registerLanguage('markdown', markdown);
 
-const Message = ({ sender, text, image, primaryColor, setShowReport }) => {
+const Message = ({ sender, text, image, primaryColor, setShowReport, handleMessageMenu }) => {
 
   let citations = [
     {
@@ -51,7 +51,7 @@ const Message = ({ sender, text, image, primaryColor, setShowReport }) => {
 
   const textColor = sender === 'user' ? 'text-white' : 'text-gray-600';
   const bgColor = sender === 'user' ? `bg-[${primaryColor}]` : 'bg-[#f5f5f5]';
-  const roundedClass = sender === 'user' ? 'rounded-br-none' : 'rounded-bl-none';
+  const roundedClass = sender === 'user' ? 'rounded-br-none' : 'rounded-b-none';
 
   const syntaxTheme = oneDark;
 
@@ -104,6 +104,13 @@ const Message = ({ sender, text, image, primaryColor, setShowReport }) => {
             >
               {text}
             </ReactMarkdown>
+            {sender !== 'user' && (<div className='w-full flex pt-2 justify-end' onClick={handleMessageMenu}>
+              <svg width="16" height="6" viewBox="0 0 17 3" fill={primaryColor} xmlns="http://www.w3.org/2000/svg">
+                <circle cx="1.5" cy="1.5" r="1.5" />
+                <circle cx="8.5" cy="1.5" r="1.5" />
+                <circle cx="15.5" cy="1.5" r="1.5" />
+              </svg>
+            </div>)}
           </div>
           {sender !== 'user' && (
             <div className={`flex flex-col py-2 w-full`}>
@@ -111,7 +118,7 @@ const Message = ({ sender, text, image, primaryColor, setShowReport }) => {
                 <div className='flex ml-2'>
                   <p className='text-[12px] leading-[12px] mb-0'>Sources</p>
                   <div className='flex' onClick={handleSources}>
-                    <img className={`ml-2 ${openSources && 'rotate180 mr-2 ml-0'}`} src='/assets/images/dropdown-icon.svg' width={12} height={12} />
+                    <img className={`ml-2 cursor-pointer ${openSources && 'rotate180 mr-2 ml-0'}`} src='/assets/images/dropdown-icon.svg' width={12} height={12} />
                   </div>
                 </div>
                 <div className='flex items-start self-stretch'>

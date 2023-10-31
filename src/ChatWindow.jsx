@@ -5,6 +5,8 @@ import Header from './components/Header.jsx';
 import Input from './components/Input.jsx';
 import axios from 'axios';
 import Report from './Report.jsx';
+import Menu from './components/Menu.jsx';
+import MessageMenu from './components/MessageMenu.jsx';
 
 const ChatWindow = ({ iframeDomain, botApiId }) => {
 
@@ -25,6 +27,8 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   const [disabled, setDisabled] = useState(true);
   const [noWelcomeMessage, setNoWelcomeMessage] = useState(false);
   const [showReport, setShowReport] = useState(false);
+  const [showHeaderMenu, setShowHeaderMenu] = useState(false);
+  const [showMessageMenu, setShowMessageMenu] = useState(false);
 
   const textAreaRef = useRef();
   const messageListRef = useRef();
@@ -107,9 +111,18 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
       })
   }
 
+  const handleShowMenu = () => {
+    setShowHeaderMenu(!showHeaderMenu);
+  }
+
+  const handleMessageMenu = () => {
+    setShowMessageMenu(!showMessageMenu);
+  }
+
   return (
     <div className="flex-1 justify-between flex flex-col h-screen relative">
-      <Header bot={bot} />
+      <Header bot={bot} handleShowMenu={handleShowMenu} />
+      <Menu showHeaderMenu={showHeaderMenu} />
       <div id="message-list" ref={messageListRef} className="flex flex-col h-full pl-[10px] pr-0 py-3 sm:p-6 overflow-y-auto">
         {messages.map((message, index) => (
           <Message
@@ -119,12 +132,15 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
             image={bot.image} 
             primaryColor={bot.primaryColor}
             setShowReport={setShowReport}
+            handleMessageMenu={handleMessageMenu}
             />
         ))}
         {isTyping && <Typing image={bot.image} primaryColor={bot.primaryColor} />}
       </div>
       <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primaryColor={bot.primaryColor} />
       {showReport && <Report setShowReport={setShowReport} />}
+      <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primaryColor={bot.primaryColor} setShowReport={setShowReport} />
+
     </div>
   );
 }
