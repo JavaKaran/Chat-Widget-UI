@@ -7,6 +7,7 @@ import axios from 'axios';
 import Report from './Report.jsx';
 import Menu from './components/Menu.jsx';
 import MessageMenu from './components/MessageMenu.jsx';
+import Sources from './components/Sources.jsx';
 
 const ChatWindow = ({ iframeDomain, botApiId }) => {
 
@@ -29,6 +30,8 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   const [showReport, setShowReport] = useState(false);
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
   const [showMessageMenu, setShowMessageMenu] = useState(false);
+
+  const[showSources, setShowSources] = useState(false);
 
   const textAreaRef = useRef();
   const messageListRef = useRef();
@@ -119,6 +122,10 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
     setShowMessageMenu(!showMessageMenu);
   }
 
+  const handleSourceMenu = () => {
+    setShowSources(!showSources);
+  }
+
   return (
     <div className="flex-1 justify-between flex flex-col h-screen relative">
       <Header bot={bot} handleShowMenu={handleShowMenu} />
@@ -138,8 +145,9 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
         {isTyping && <Typing image={bot.image} primaryColor={bot.primaryColor} />}
       </div>
       <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primaryColor={bot.primaryColor} />
-      {showReport && <Report setShowReport={setShowReport} />}
-      <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primaryColor={bot.primaryColor} setShowReport={setShowReport} />
+      {showReport && <Report setShowReport={setShowReport} primaryColor={bot.primaryColor} />}
+      <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primaryColor={bot.primaryColor} setShowReport={setShowReport} showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu}/>
+      <Sources showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu}/>
 
     </div>
   );

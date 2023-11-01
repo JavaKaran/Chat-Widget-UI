@@ -1,9 +1,9 @@
 import React from "react";
 
-const Header = ({ bot, handleShowMenu }) => {
+const Header = ({ bot, handleShowMenu, primaryColor }) => {
 
   return (
-    <div className={`flex items-center justify-between pt-2 py-3 sm:py-3 bg-[${bot.primaryColor}] border-b-2 px-3 border-gray-200`}>
+    <div className={`bg-[${bot.primaryColor}] flex items-center justify-between pt-2 py-3 sm:py-3  border-b-2 px-3 border-gray-200`}>
       <div className="relative flex items-center space-x-4">
         <img src={bot.image} alt="Brainstormer Logo" className="w-8 sm:w-16 h-8 sm:h-16 rounded-full" />
         <div className="flex flex-col leading-tight">
