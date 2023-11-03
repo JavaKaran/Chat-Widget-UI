@@ -51,7 +51,7 @@ const Message = ({ sender, text, image, primaryColor, setShowReport, handleMessa
 
   const textColor = sender === 'user' ? 'text-white' : 'text-gray-600';
   const bgColor = sender === 'user' ? `bg-[${primaryColor}]` : 'bg-[#f5f5f5]';
-  const roundedClass = sender === 'user' ? 'rounded-br-none' : 'rounded-b-none';
+  const roundedClass = sender === 'user' ? 'rounded-br-none' : 'rounded-bl-none';
 
   const syntaxTheme = oneDark;
 
@@ -93,9 +93,9 @@ const Message = ({ sender, text, image, primaryColor, setShowReport, handleMessa
   // }
 
   return (
-    <div className="chat-message my-[5px] sm:my-2">
+    <div className="chat-message my-[10px] sm:my-2">
       <div className={`flex items-start ${sender === 'user' ? 'justify-end' : ''}`}>
-        <div className={`flex flex-col max-w-[75%] sm:max-w-[70%] ${sender === 'user' && 'mr-0'} mx-2 order-${sender === 'user' ? '1' : 'last'} items-${sender === 'user' ? 'end' : 'start border border-[#f5f5f5] rounded-xl'}`}>
+        <div className={`flex flex-col max-w-[75%] sm:max-w-[70%] ${sender === 'user' && 'mr-0'} mx-2 order-${sender === 'user' ? '1' : 'last'} items-${sender === 'user' ? 'end' : 'start border border-[#f5f5f5] rounded-xl rounded-bl-none'}`}>
           <div className={`py-2 px-3 rounded-xl w-full ${sender === 'user' && 'whitespace-pre-wrap'} break-words ${roundedClass} ${bgColor} ${textColor} ${sender}`}>
             <ReactMarkdown
               components={MarkdownComponents}
