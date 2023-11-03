@@ -66,7 +66,7 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
         <div className="border-t-2 border-gray-200 p-2 sm:p-6 sm:mb-0 shadow-lg">
             <div className="relative flex justify-around items-center">
                 <div className='mr-[5px]' onClick={handleLanguages}>
-                    <p className={`border-1 border-solid p-2 rounded-2xl uppercase mb-0 text-[12px] leading-[12px]`} style={{ color: primaryColor, borderColor: primaryColor }}>{selectedLanguage}</p>
+                    <p className={`border-1 border-solid p-2 rounded-2xl uppercase mb-0 text-[10px] leading-[12px]`} style={{ color: primaryColor, borderColor: primaryColor }}>{selectedLanguage}</p>
                 </div>
                 <div className={`fixed top-0 w-full h-full z-20 ${showLanguage ? 'block' : 'hidden'}`}  onClick={handleLanguages}>
                     <div className='bg-[rgba(0,0,0,0.7)] flex justify-end flex-col h-full w-full'>
@@ -74,10 +74,10 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
                     </div>
                 </div>
                 <div className={`language-ct rounded-t-xl bg-white p-3 pb-2 transition ease-in-out duration-500 divide-y divide-[#000000] w-full fixed bottom-0 left-0 z-50 ${showLanguage ? 'block' : 'hidden'}`}>
-                    <h2 className='font-semibold text-[18px] pb-[10px]'>Select Language</h2>
+                    <h2 className='font-semibold text-[15px] pb-[10px]'>Select Language</h2>
                      <ul className='language-list list-none p-0 max-h-[140px] overflow-y-auto'>
                         {languages.map((language) => (
-                            <li className={`py-[12px] text-[16px] border-b border-gray-400 ${selectedLanguage == language.name ? 'text-[#912d2a]' : 'text-[#333333]'}`} key={language.id} onClick={() => handleLanguageChange(language.name)}>
+                            <li className={`py-[10px] text-[13px] border-b border-gray-400 ${selectedLanguage == language.name ? 'text-[#912d2a]' : 'text-[#333333]'}`} key={language.id} onClick={() => handleLanguageChange(language.name)}>
                                 {language.name}
                             </li>
                         ))}

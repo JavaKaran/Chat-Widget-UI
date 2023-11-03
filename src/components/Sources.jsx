@@ -8,28 +8,28 @@ const Sources = ({showSources, setShowSources, handleSourceMenu}) => {
             </div>
         </div>
         <div className={`source-list-ct rounded-t-xl bg-white p-3 pb-2 transition ease-in-out duration-500 divide-y divide-[#000000] relative z-50 ${showSources ? 'block' : 'hidden'}`}>
-            <h2 className='font-semibold text-[18px]'>Sources</h2>
+            <h2 className='font-semibold text-[16px]'>Sources</h2>
             <ul className='source-list list-none p-0 mx-auto w-full '>
-                <li className='source-item my-[0px] py-[12px]'>
-                    <a className='cursor-pointer text-[15px] text-[#333333]'>
+                <li className='source-item my-[0px] py-[10px]'>
+                    <a className='cursor-pointer text-[13px] text-[#333333]'>
                         <img src="/assets/images/pdf-ic2.svg" alt="pdf-icon" width="22px" height="22px" className='mr-[10px]' />
                         <span>FinancialReport2023</span>
                     </a>
                 </li>
-                <li className='source-item my-[0px] py-[12px]'>
-                    <a className='cursor-pointer text-[15px] text-[#333333]'>
+                <li className='source-item my-[0px] py-[10px]'>
+                    <a className='cursor-pointer text-[13px] text-[#333333]'>
                         <img src="/assets/images/pdf-ic2.svg" alt="pdf-icon" width="22px" height="22px" className='mr-[10px]'/>
                         <span>FinancialReport2023</span>
                     </a>
                 </li>
-                <li className='source-item my-[0px] py-[12px]'>
-                    <a className='cursor-pointer text-[15px] text-[#333333]'>
+                <li className='source-item my-[0px] py-[10px]'>
+                    <a className='cursor-pointer text-[13px] text-[#333333]'>
                         <img src="/assets/images/pdf-ic2.svg" alt="pdf-icon" width="22px" height="22px" className='mr-[10px]'/>
                         <span>FinancialReport2023</span>
                     </a>
                 </li>
-                <li className='source-item my-[0px] py-[12px]'>
-                    <a className='cursor-pointer text-[15px] text-[#333333]'>
+                <li className='source-item my-[0px] py-[10px]'>
+                    <a className='cursor-pointer text-[13px] text-[#333333]'>
                         <img src="/assets/images/pdf-ic2.svg" alt="pdf-icon" width="22px" height="22px" className='mr-[10px]'/>
                         <span>FinancialReport2023</span>
                     </a>
