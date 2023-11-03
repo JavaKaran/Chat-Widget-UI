@@ -27,14 +27,14 @@ const Report = ({ primaryColor, setShowReport }) => {
     return (
         <div className={`absolute bottom-0 w-full h-full bg-[${primaryColor}]`}>
             <div className="flex p-3 h-[8vh] cursor-pointer">
-                <img src="/assets/images/back-icon.svg" width={16} height={16} alt="Back" onClick={handleBack} />
+                <img src="/assets/images/back-icon.svg" width={16} height={16} alt="Back" onClick={handleBack} className="ml-[10px]"/>
             </div>
             <div className="w-full md:w-1/2 mx-auto bg-white !p-[20px] border rounded-t-2xl min-h-[92vh]">
                 {!submitted ? (
                     <div className="flex justify-between items-start flex-col h-[75vh]">
                         <div>
                             <p className="text-[#333] text-[12px] leading-[18px] bg-[#f5f5f5] p-[15px] rounded-xl mt-[10px] mb-[20px]">FERBy is our AI generated bot. This will help you with any details that you need to better understand education in Qatar. Lorem ipsum dolor sit ...</p>
-                            <h4 className="text-[16px] leading-[18px] font-normal text-[#333333] text-[20px] font-semibold leading-[26px] mb-[15px]">Why do you want to report this message?</h4>
+                            <h4 className="font-normal text-[#333333] text-[20px] font-semibold leading-[28px] mb-[15px]">Why do you want to report this message?</h4>
                             <form>
                                 <div className="radio my-[10px]">
                                     <label className="flex items-center text-[16px] leading-[16px]">
@@ -45,7 +45,7 @@ const Report = ({ primaryColor, setShowReport }) => {
                                             onChange={handleRadioChange}
                                             className={`my-2 w-5 h-5 accent-[${primaryColor}]`}
                                         />
-                                        <span className="ml-2 text-[16px] text-[#333333]">Hateful</span>
+                                        <span className="ml-2 text-[16px] text-[#333333] font-semibold">Hateful</span>
                                     </label>
                                 </div>
                                 <div className="radio my-[10px]">
@@ -55,9 +55,9 @@ const Report = ({ primaryColor, setShowReport }) => {
                                             value="Abusive and Harassment"
                                             checked={selectedOption === "Abusive and Harassment"}
                                             onChange={handleRadioChange}
-                                            className={`my-2 w-5 h-5 accent-[${primaryColor}]`}
+                                            className={`my-2 w-5 h-5 accent-[#912d2a]`}
                                         />
-                                        <span className="ml-2 text-[16px] text-[#333333]">Abusive and Harassment</span>
+                                        <span className="ml-2 text-[16px] text-[#333333] font-semibold">Abusive and Harassment</span>
                                     </label>
                                 </div>
                                 <div className="radio my-[10px]">
@@ -67,9 +67,9 @@ const Report = ({ primaryColor, setShowReport }) => {
                                             value="Spam"
                                             checked={selectedOption === "Spam"}
                                             onChange={handleRadioChange}
-                                            className={`my-2 w-5 h-5 accent-[${primaryColor}]`}
+                                            className={`my-2 w-5 h-5 accent-[#912d2a]`}
                                         />
-                                        <span className="ml-2 text-[16px] text-[#333333]">Spam</span>
+                                        <span className="ml-2 text-[16px] text-[#333333] font-semibold">Spam</span>
                                     </label>
                                 </div>
                                 <div className="radio my-[10px]">
@@ -79,9 +79,9 @@ const Report = ({ primaryColor, setShowReport }) => {
                                             value="Other"
                                             checked={selectedOption === "Other"}
                                             onChange={handleRadioChange}
-                                            className={`my-2 w-5 h-5 accent-[${primaryColor}]`}
+                                            className={`my-2 w-5 h-5 accent-[#912d2a]`}
                                         />
-                                        <span className="ml-2 text-[16px] text-[#333333]">Other</span>
+                                        <span className="ml-2 text-[16px] text-[#333333] font-semibold">Other</span>
                                     </label>
                                 </div>
                                 {selectedOption == 'Other' && <textarea value={otherText} onChange={handleTextChange} rows={5} placeholder="Not Appropriate For Children" className="resize-none w-full md:w-[50%] my-2 p-2 text-[14px] leading-[14px] border bg-[#FCFCFC]" />}

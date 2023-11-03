@@ -182,3 +182,19 @@ code {
 .hideMenu{
   transform: translateY(100%);
 }
+
+.language-ct .language-list li {
+  border-bottom: 1px solid #ECECEC;
+}
+.message-menu-ct .menu-item {
+  border-bottom: 1px solid #ECECEC !important;
+}
+.message-menu-ct .menu-item:last-child {
+  border-bottom: none !important;
+}
+.source-list-ct .source-item {
+  border-bottom: 1px solid #ECECEC !important;
+}
+.source-list-ct .source-item:last-child {
+  border-bottom:none !important;
+}
