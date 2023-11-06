@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled, primaryColor }) => {
+const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled, primaryColor, handleShowMenu }) => {
 
     const textarea = textAreaRef.current;
     const [selectedLanguage, setSelectedLanguage] = useState('English');
@@ -65,9 +65,10 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
     return (
         <div className="border-t-2 border-gray-200 p-2 sm:p-6 sm:mb-0 shadow-lg">
             <div className="relative flex justify-around items-center">
-                <div className='mr-[5px]' onClick={handleLanguages}>
+                {/* <div className='mr-[5px]' onClick={handleLanguages}>
                     <p className={`border-1 border-solid p-2 rounded-2xl uppercase mb-0 text-[10px] leading-[12px]`} style={{ color: primaryColor, borderColor: primaryColor }}>{selectedLanguage}</p>
-                </div>
+                </div> */}
+                <a className='dropup-icon-link pl-[10px]' onClick={handleShowMenu}> <img src="/assets/images/dropup-ic.svg" alt="dropup icon" /></a>
                 <div className={`fixed top-0 w-full h-full z-20 ${showLanguage ? 'block' : 'hidden'}`}  onClick={handleLanguages}>
                     <div className='bg-[rgba(0,0,0,0.7)] flex justify-end flex-col h-full w-full'>
                         

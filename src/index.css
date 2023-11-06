@@ -168,11 +168,11 @@ code {
 }
 
 .show-menu { 
-  transform: translateY(100px);
+  transform: translateY(0px);
 }
 
 .hide-menu { 
-  transform: translateY(-100%);
+  transform: translateY(+100%);
 }
 
 .showMenu{
@@ -197,4 +197,10 @@ code {
 }
 .source-list-ct .source-item:last-child {
   border-bottom:none !important;
+}
+.menu-ct .menu-item {
+  border-bottom: 1px solid #ECECEC !important;
+}
+.menu-ct .menu-item:last-child {
+  border-bottom: none !important;
 }

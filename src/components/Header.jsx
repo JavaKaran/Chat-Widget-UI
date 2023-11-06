@@ -13,9 +13,9 @@ const Header = ({ bot, handleShowMenu, primaryColor }) => {
           <span className="text-xs sm:text-sm text-white">{bot.description}</span>
         </div>
       </div>
-      <div className="cursor-pointer flex ml-1" onClick={handleShowMenu}>
+      {/* <div className="cursor-pointer flex ml-1" onClick={handleShowMenu}>
         <img src="/assets/images/menu-option-icon.svg" width="18" height="18" alt="Menu Icon" />
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -172,7 +172,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   return (
     <div className="flex-1 justify-between flex flex-col h-screen relative">
       <Header bot={bot} handleShowMenu={handleShowMenu} />
-      <Menu showHeaderMenu={showHeaderMenu} messages={messages} downloadPDF={downloadPDF} />
+      <Menu showHeaderMenu={showHeaderMenu} messages={messages} downloadPDF={downloadPDF} primaryColor={bot.primaryColor} handleShowMenu={handleShowMenu}/>
       <div id="message-list" ref={messageListRef} className="flex flex-col h-full pl-[10px] pr-0 py-3 sm:p-6 overflow-y-auto">
         <div id="messages-list-inside" className='w-auto h-auto'>
           {messages.map((message, index) => (
@@ -189,7 +189,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
           {isTyping && <Typing image={bot.image} primaryColor={bot.primaryColor} />}
         </div>
       </div>
-      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primaryColor={bot.primaryColor} />
+      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primaryColor={bot.primaryColor} handleShowMenu={handleShowMenu} />
       {showReport && <Report setShowReport={setShowReport} primaryColor={bot.primaryColor} />}
       <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primaryColor={bot.primaryColor} setShowReport={setShowReport} showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} />
       <Sources showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} />
