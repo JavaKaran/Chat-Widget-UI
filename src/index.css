@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+ul,ol {
+  padding-left: 1rem;
+}
+
 .bot .markdown-text code {
   background-color: rgba(110,118,129,0.4);
   color: inherit;
@@ -15,8 +19,8 @@
   border-radius: 6px;
 }
 
-.markdown-text p,pre {
-  margin: 0;
+.table-responsive::-webkit-scrollbar{
+  display: none;
 }
 
 .markdown-text h1,h2,h3,h4,h5,h6{
@@ -25,6 +29,28 @@
 
 .markdown-text > *:first-child{
   margin-top: 0;
+}
+
+.markdown-text > *:last-child{
+  margin-bottom: 0;
+}
+
+table{
+  margin: 10px 0;
+}
+
+th {
+  font-size: 15px;
+  line-height: 20px;
+} 
+
+td {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.markdown-text > table:first-child{
+  margin-bottom: 0;
 }
 
 .rotate-90 {
@@ -57,6 +83,7 @@ code {
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
+  display: none;
 }
 
 /* Track */
@@ -66,13 +93,13 @@ code {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #2c2d98;
+  background: #912d21;
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #5658d8;
+  background: #912d2a;
 }
 
 .chat-typing-indicator span.dot {
@@ -80,7 +107,7 @@ code {
   width: 8px;
   margin: 0 3px;
   float: left;
-  background-color: #2C2D98;
+  /* background-color: #2C2D98; */
   display: block;
   border-radius: 50%;
   opacity: 0.2;
@@ -138,4 +165,65 @@ code {
 .message-input:empty:before {
   content:attr(placeholder);
   color: gray;
+}
+
+.rotate180{
+  transform: rotate(180deg);
+}
+
+.show-menu { 
+  transform: translateY(0px);
+}
+
+.hide-menu { 
+  transform: translateY(+100%);
+}
+
+.showMenu{
+  transform: translateY(0);
+}
+
+.hideMenu{
+  transform: translateY(100%);
+}
+.show-msg-menu { 
+  transform: translateY(0px);
+}
+
+.hide-msg-menu { 
+  transform: translateY(+100%);
+}
+.show-source-menu {
+  transform: translateY(0px);
+}
+.hide-source-menu {
+  transform: translateY(+100%);
+}
+.show-lang-menu {
+  transform: translateX(0px);
+}
+.hide-lang-menu {
+  transform: translateX(+100%);
+}
+
+.language-ct .language-list li {
+  border-bottom: 1px solid #ECECEC;
+}
+.message-menu-ct .menu-item {
+  border-bottom: 1px solid #ECECEC !important;
+}
+.message-menu-ct .menu-item:last-child {
+  border-bottom: none !important;
+}
+.source-list-ct .source-item {
+  border-bottom: 1px solid #ECECEC !important;
+}
+.source-list-ct .source-item:last-child {
+  border-bottom:none !important;
+}
+.menu-ct .menu-item {
+  border-bottom: 1px solid #ECECEC !important;
+}
+.menu-ct .menu-item:last-child {
+  border-bottom: none !important;
 }
