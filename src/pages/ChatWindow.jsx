@@ -58,13 +58,13 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   useEffect(() => {
     axios({
-      url: `${apiURL}/bot_by_id/bot_${botId}`,
+      url: `${apiURL}/bot_by_id/bot_02a98020_eaf2_43d4_80b7_55537f3988ff`,
       method: 'POST',
       data: {
         domain: domain
       },
       headers: {
-        'Api-token': 'BLiEUe64EC4Wj7HPYPXa'
+        'Api-token': 'Vyhn1VFWqwM2LLvnaPpG'
       }
     })
       .then((response) => {
@@ -111,6 +111,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
           setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: response.data.message }]);
           setIsTyping(false);
           setNoWelcomeMessage(false);
+          console.log(response);
         }
       })
       .catch((err) => {
