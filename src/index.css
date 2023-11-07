@@ -182,6 +182,25 @@ code {
 .hideMenu{
   transform: translateY(100%);
 }
+.show-msg-menu { 
+  transform: translateY(0px);
+}
+
+.hide-msg-menu { 
+  transform: translateY(+100%);
+}
+.show-source-menu {
+  transform: translateY(0px);
+}
+.hide-source-menu {
+  transform: translateY(+100%);
+}
+.show-lang-menu {
+  transform: translateX(0px);
+}
+.hide-lang-menu {
+  transform: translateX(+100%);
+}
 
 .language-ct .language-list li {
   border-bottom: 1px solid #ECECEC;

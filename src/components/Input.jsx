@@ -68,13 +68,13 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
                 {/* <div className='mr-[5px]' onClick={handleLanguages}>
                     <p className={`border-1 border-solid p-2 rounded-2xl uppercase mb-0 text-[10px] leading-[12px]`} style={{ color: primaryColor, borderColor: primaryColor }}>{selectedLanguage}</p>
                 </div> */}
-                <a className='dropup-icon-link pl-[10px]' onClick={handleShowMenu}> <img src="/assets/images/dropup-ic.svg" alt="dropup icon" /></a>
+                <a className='dropup-icon-link px-[5px]' onClick={handleShowMenu}> <img src="/assets/images/dropup-ic.svg" alt="dropup icon" /></a>
                 <div className={`fixed top-0 w-full h-full z-20 ${showLanguage ? 'block' : 'hidden'}`}  onClick={handleLanguages}>
                     <div className='bg-[rgba(0,0,0,0.7)] flex justify-end flex-col h-full w-full'>
                         
                     </div>
                 </div>
-                <div className={`language-ct rounded-t-xl bg-white p-3 pb-2 transition ease-in-out duration-500 divide-y divide-[#000000] w-full fixed bottom-0 left-0 z-50 ${showLanguage ? 'block' : 'hidden'}`}>
+                <div className={`language-ct rounded-t-xl bg-white p-3 pb-2 transition ease-in-out duration-500 divide-y divide-[#000000] w-full fixed bottom-0 left-0 z-50 ${showLanguage ? 'show-lang-menu' : 'hide-lang-menu'}`}>
                     <h2 className='font-semibold text-[15px] pb-[10px]'>Select Language</h2>
                      <ul className='language-list list-none p-0 max-h-[140px] overflow-y-auto'>
                         {languages.map((language) => (
@@ -84,7 +84,7 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
                         ))}
                     </ul>
                 </div>
-                <div className='relative w-[80%] flex'>
+                <div className='relative w-[88%] flex'>
                     <textarea
                         placeholder="Write your message!"
                         className="w-full border border-[#e9e9e9] focus:placeholder-gray-400 placeholder-gray-600 text-black outline-none bg-[#fcfcfc] rounded-md pl-2 py-[10px] sm:p-4 resize-none text-[13px] leading-[17px] sm:text-sm message-input pr-[30px]"
