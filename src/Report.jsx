@@ -25,7 +25,7 @@ const Report = ({ primaryColor, setShowReport, text, fadeEffect }) => {
     }
 
     return (
-        <div className={`fixed bottom-0 w-full h-full bg-[${primaryColor}] `}>
+        <div className={`fixed bottom-0 w-full h-full overflow-y-auto bg-[${primaryColor}] `}>
             <div className="flex p-3 h-[8vh] cursor-pointer">
                 <img src="/assets/images/back-icon.svg" width={16} height={16} alt="Back" onClick={handleBack} className="ml-[10px]"/>
             </div>
