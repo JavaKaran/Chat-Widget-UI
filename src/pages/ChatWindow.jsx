@@ -35,7 +35,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   const [showReport, setShowReport] = useState(false);
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
   const [showMessageMenu, setShowMessageMenu] = useState(false);
-  const [message, setMessage] = useState('');
+  const [selectedMessage, setSelectedMessage] = useState(null);
 
   const [showSources, setShowSources] = useState(false);
 
@@ -45,7 +45,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   const handleMessageSend = (text) => {
     if (isTyping) return;
     setIsTyping(true);
-    setMessages((prevMessage) => [...prevMessage, {sender: 'user', text, reported: false }]);
+    setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'user', text, reported: false }]);
     sendMessage(text);
   };
 
@@ -81,12 +81,13 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
             primaryColor: '#912d2a'
           })
           setDisabled(false);
-          { bot.WelcomeMessage ? (
-            <>
-              {setMessages((prevMessage) => [...prevMessage, {sender: 'bot', text: bot.WelcomeMessage, reported: false }])}
-            </>
+          {
+            bot.WelcomeMessage ? (
+              <>
+                {setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'bot', text: bot.WelcomeMessage, reported: false }])}
+              </>
             )
-            : setNoWelcomeMessage(true) 
+              : setNoWelcomeMessage(true)
           }
         }
       })
@@ -97,7 +98,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   useEffect(() => {
     if (noWelcomeMessage) {
-      setMessages((prevMessage) => [...prevMessage, {sender: 'bot', text: 'Welcome my master. Your message is my command!', reported: false }]);
+      setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'bot', text: 'Welcome my master. Your message is my command!', reported: false }]);
       setNoWelcomeMessage(false);
     }
   }, [noWelcomeMessage])
@@ -116,7 +117,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
     })
       .then((response) => {
         if (response.data.status === 'success') {
-          setMessages((prevMessage) => [...prevMessage, {sender: 'bot', text: response.data.message, reported: false }]);
+          setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'bot', text: response.data.message, reported: false }]);
           setIsTyping(false);
           setNoWelcomeMessage(false);
         }
@@ -130,12 +131,11 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
     setShowHeaderMenu(!showHeaderMenu);
   }
 
-  const handleMessageMenu = (e, messageText) => {
+  const handleMessageMenu = (e, message) => {
     setShowMessageMenu(!showMessageMenu);
-    if(messageText){
-      setMessage(messageText);
+    if (message) {
+      setSelectedMessage(message);
     }
-    // console.log("setting message",messageText,message)
   }
 
   const handleSourceMenu = () => {
@@ -213,6 +213,14 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
     }
   }
 
+  const handleReport = () => {
+    const messageToReport = messages.find((msg) => msg.id === selectedMessage.id);
+
+    if (messageToReport) {
+      messages[messageToReport.id].reported = true;
+    }
+  }
+
   return (
     <div className="flex-1 justify-between flex flex-col h-screen relative">
       <Header bot={bot} handleShowMenu={handleShowMenu} />
@@ -222,8 +230,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
           {messages.map((message, index) => (
             <Message
               key={index}
-              sender={message.sender}
-              text={message.text}
+              message={message}
               image={bot.image}
               primaryColor={bot.primaryColor}
               setShowReport={setShowReport}
@@ -234,8 +241,8 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
         </div>
       </div>
       <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primaryColor={bot.primaryColor} handleShowMenu={handleShowMenu} />
-      {showReport && <Report setShowReport={setShowReport} primaryColor={bot.primaryColor} fadeEffect={'zoomIn'} text={message} />}
-      <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primaryColor={bot.primaryColor} setShowReport={setShowReport} showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} message={message} getDateTime={getDateTime} />
+      {showReport && <Report setShowReport={setShowReport} primaryColor={bot.primaryColor} fadeEffect={'zoomIn'} selectedMessage={selectedMessage} handleReport={handleReport} />}
+      <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primaryColor={bot.primaryColor} setShowReport={setShowReport} showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} selectedMessage={selectedMessage} getDateTime={getDateTime} />
       <Sources showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} />
       {/* <PDFGenerator messages={messages} /> */}
       <Toaster />

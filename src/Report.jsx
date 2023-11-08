@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Report = ({ primaryColor, setShowReport, text, fadeEffect }) => {
+const Report = ({ primaryColor, setShowReport, selectedMessage, fadeEffect, handleReport }) => {
 
     const [selectedOption, setSelectedOption] = useState('Hateful');
     const [otherText, setOtherText] = useState('');
@@ -16,7 +16,7 @@ const Report = ({ primaryColor, setShowReport, text, fadeEffect }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("form submitted");
+        handleReport();
         setSubmitted(true);
     }
 
@@ -34,7 +34,7 @@ const Report = ({ primaryColor, setShowReport, text, fadeEffect }) => {
                     <div className={`flex justify-between items-start flex-col h-[75vh] ${fadeEffect}`}>
                         <div>
                             <div className="bg-[#f5f5f5] p-[15px] rounded-xl mt-[10px] mb-[20px]">
-                                <p className="text-[#333] text-[12px] leading-[18px] mb-0 max-3-lines">{text}</p>
+                                <p className="text-[#333] text-[12px] leading-[18px] mb-0 max-3-lines">{selectedMessage.text}</p>
                             </div>
                             <h4 className="font-normal text-[#333333] text-[16px] font-semibold leading-[22px] mb-[15px]">Why do you want to report this message?</h4>
                             <form>
