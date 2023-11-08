@@ -191,7 +191,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
         </div>
       </div>
       <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primaryColor={bot.primaryColor} handleShowMenu={handleShowMenu} />
-      {showReport && <Report setShowReport={setShowReport} primaryColor={bot.primaryColor} />}
+      {showReport && <Report setShowReport={setShowReport} primaryColor={bot.primaryColor} fadeEffect={'zoomIn'}/>}
       <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primaryColor={bot.primaryColor} setShowReport={setShowReport} showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} />
       <Sources showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} />
       {/* <PDFGenerator messages={messages} /> */}

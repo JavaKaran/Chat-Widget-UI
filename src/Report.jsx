@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Report = ({ primaryColor, setShowReport }) => {
+const Report = ({ primaryColor, setShowReport, fadeEffect }) => {
 
     const [selectedOption, setSelectedOption] = useState('Hateful');
     const [otherText, setOtherText] = useState('');
@@ -25,13 +25,13 @@ const Report = ({ primaryColor, setShowReport }) => {
     }
 
     return (
-        <div className={`absolute bottom-0 w-full h-full bg-[${primaryColor}]`}>
+        <div className={`fixed bottom-0 w-full h-full bg-[${primaryColor}] `}>
             <div className="flex p-3 h-[8vh] cursor-pointer">
                 <img src="/assets/images/back-icon.svg" width={16} height={16} alt="Back" onClick={handleBack} className="ml-[10px]"/>
             </div>
             <div className="w-full md:w-1/2 mx-auto bg-white !p-[20px] border rounded-t-2xl min-h-[100vh]">
                 {!submitted ? (
-                    <div className="flex justify-between items-start flex-col h-[75vh]">
+                    <div className={`flex justify-between items-start flex-col h-[75vh] ${fadeEffect}`}>
                         <div>
                             <p className="text-[#333] text-[12px] leading-[18px] bg-[#f5f5f5] p-[15px] rounded-xl mt-[10px] mb-[20px]">FERBy is our AI generated bot. This will help you with any details that you need to better understand education in Qatar. Lorem ipsum dolor sit ...</p>
                             <h4 className="font-normal text-[#333333] text-[16px] font-semibold leading-[22px] mb-[15px]">Why do you want to report this message?</h4>
@@ -92,7 +92,7 @@ const Report = ({ primaryColor, setShowReport }) => {
                         </button>
                     </div>
                 ) : (
-                    <div className="flex items-center justify-center flex-col h-[75vh]">
+                    <div className={`flex items-center justify-center flex-col h-[75vh] fadeIn`}>
                         <img src="/assets/images/submitted-img.svg" width={80} height={80} alt="Submitted Icon" />
                         <p className="text-[20px] leading-[32px] text-center font-bold mt-[20px]">Your report has been submitted</p>
                         <p className="text-[16px] leading-[28px] text-center text-[#333] font-semibold px-[15px]">Thanks for your feedback, our team will look into it!</p>
