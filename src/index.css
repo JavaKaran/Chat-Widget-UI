@@ -227,3 +227,38 @@ code {
 .menu-ct .menu-item:last-child {
   border-bottom: none !important;
 }
+.zoomIn {
+  /* opacity: 0; */
+  animation: zoomInAnimation 0.5s forwards;
+}
+
+@keyframes zoomInAnimation {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.fadeIn {
+  opacity: 0;
+  animation: fadeInAnimation 1s forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.max-3-lines{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  height: 54px;
+}

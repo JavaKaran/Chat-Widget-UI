@@ -12,6 +12,7 @@ import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import PDFGenerator from '../components/ConversationPDF.jsx';
 import html2pdf from 'html2pdf.js/dist/html2pdf.min';
+import { Toaster } from 'react-hot-toast';
 
 const ChatWindow = ({ iframeDomain, botApiId }) => {
 
@@ -44,7 +45,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   const handleMessageSend = (text) => {
     if (isTyping) return;
     setIsTyping(true);
-    setMessages((prevMessage) => [...prevMessage, { sender: 'user', text }]);
+    setMessages((prevMessage) => [...prevMessage, {sender: 'user', text, reported: false }]);
     sendMessage(text);
   };
 
@@ -80,7 +81,13 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
             primaryColor: '#912d2a'
           })
           setDisabled(false);
-          { bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: bot.WelcomeMessage }]) : setNoWelcomeMessage(true) }
+          { bot.WelcomeMessage ? (
+            <>
+              {setMessages((prevMessage) => [...prevMessage, {sender: 'bot', text: bot.WelcomeMessage, reported: false }])}
+            </>
+            )
+            : setNoWelcomeMessage(true) 
+          }
         }
       })
       .catch((err) => {
@@ -90,7 +97,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   useEffect(() => {
     if (noWelcomeMessage) {
-      setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: 'Welcome my master. Your message is my command!' }]);
+      setMessages((prevMessage) => [...prevMessage, {sender: 'bot', text: 'Welcome my master. Your message is my command!', reported: false }]);
       setNoWelcomeMessage(false);
     }
   }, [noWelcomeMessage])
@@ -109,10 +116,9 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
     })
       .then((response) => {
         if (response.data.status === 'success') {
-          setMessages((prevMessage) => [...prevMessage, { sender: 'bot', text: response.data.message }]);
+          setMessages((prevMessage) => [...prevMessage, {sender: 'bot', text: response.data.message, reported: false }]);
           setIsTyping(false);
           setNoWelcomeMessage(false);
-          console.log(response);
         }
       })
       .catch((err) => {
@@ -126,7 +132,10 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   const handleMessageMenu = (e, messageText) => {
     setShowMessageMenu(!showMessageMenu);
-    setMessage(messageText);
+    if(messageText){
+      setMessage(messageText);
+    }
+    // console.log("setting message",messageText,message)
   }
 
   const handleSourceMenu = () => {
@@ -225,10 +234,11 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
         </div>
       </div>
       <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primaryColor={bot.primaryColor} handleShowMenu={handleShowMenu} />
-      {showReport && <Report setShowReport={setShowReport} primaryColor={bot.primaryColor} />}
+      {showReport && <Report setShowReport={setShowReport} primaryColor={bot.primaryColor} fadeEffect={'zoomIn'} text={message} />}
       <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primaryColor={bot.primaryColor} setShowReport={setShowReport} showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} message={message} getDateTime={getDateTime} />
       <Sources showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} />
       {/* <PDFGenerator messages={messages} /> */}
+      <Toaster />
     </div>
   );
 }

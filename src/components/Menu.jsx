@@ -2,6 +2,7 @@ import React from "react";
 import { BlobProvider, PDFDownloadLink } from "@react-pdf/renderer";
 import ConversationPDF from "./ConversationPDF";
 import { useEffect, useState } from 'react';
+import toast from "react-hot-toast";
 
 const Menu = ({ showHeaderMenu, messages, downloadPDF, primaryColor, handleShowMenu, bot, getDateTime }) => {
 
@@ -15,6 +16,16 @@ const Menu = ({ showHeaderMenu, messages, downloadPDF, primaryColor, handleShowM
     const handleLanguageChange = (language) => {
         setSelectedLanguage(language);
         setShowLanguage(!showLanguage);
+        toast('Language changed',{
+            duration: 1500,
+            position: 'top-right',
+            style: {
+                backgroundColor: 'white',
+                color: primaryColor,
+                fontSize: '12px',
+                padding: '5px 7px'
+            }
+        })
     };
 
     const languages = [
@@ -33,6 +44,20 @@ const Menu = ({ showHeaderMenu, messages, downloadPDF, primaryColor, handleShowM
         setDateInfo(getDateTime());
     })
 
+    const handlePDFDownload = () => {
+        handleShowMenu();
+        toast('PDF Downloaded',{
+            duration: 1500,
+            position: 'top-right',
+            style: {
+                backgroundColor: 'white',
+                color: primaryColor,
+                fontSize: '12px',
+                padding: '5px 7px'
+            }
+        })
+    }
+
     return (
         <>
             <div className={`bg-[rgba(0,0,0,0.7)] fixed z-10 flex justify-end flex-col h-full w-full ${showHeaderMenu ? 'show-menu' : 'hide-menu'}`} onClick={handleShowMenu}>
@@ -49,10 +74,10 @@ const Menu = ({ showHeaderMenu, messages, downloadPDF, primaryColor, handleShowM
                     <p className="mb-0 ml-0 text-[13px] leading-[16px] font-normal" style={{ color: primaryColor }}>Share entire conversation (Image)</p>
                 </div> */}
                 <div className="menu-item flex items-center justify-start p-[10px] cursor-pointer">
-                    {/* <PDFDownloadLink document={<ConversationPDF messages={messages} bot={bot} />} fileName="Chat.pdf" className="text-[12px] text-black no-underline cursor-pointer">
-                        <p className="mb-0 ml-0 text-[13px] leading-[16px] font-normal" style={{ color: primaryColor }}>Share entire conversation</p>
-                    </PDFDownloadLink> */}
-                    <BlobProvider document={<ConversationPDF messages={messages} bot={bot} dateInfo={dateInfo} />}>
+                    <PDFDownloadLink document={<ConversationPDF messages={messages} bot={bot} dateInfo={dateInfo} />} fileName="Chat.pdf" className="text-[12px] text-black no-underline cursor-pointer" onClick={handlePDFDownload}>
+                        <p className="mb-0 ml-0 text-[13px] leading-[16px] font-medium" style={{ color: primaryColor }}>Share entire conversation</p>
+                    </PDFDownloadLink>
+                    {/* <BlobProvider document={<ConversationPDF messages={messages} bot={bot} dateInfo={dateInfo} />}>
                         {({ url, ...rest }) => {
                             return (
                                 <a href={url} target="_blank" className="no-underline">
@@ -60,7 +85,7 @@ const Menu = ({ showHeaderMenu, messages, downloadPDF, primaryColor, handleShowM
                                 </a>
                             )
                         }}
-                    </BlobProvider>
+                    </BlobProvider> */}
                 </div>
                 <div className="menu-item flex items-center justify-start p-[10px] cursor-pointer">
                     <p className="mb-0 ml-0 text-[13px] leading-[16px] font-medium" style={{ color: primaryColor }}>Privacy Policy</p>
