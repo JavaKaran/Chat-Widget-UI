@@ -73,7 +73,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
     scrollToEnd();
   }, [messages]);
 
-  useEffect(() => {
+  const fetchInfo = () => {
     axios({
       url: `${apiURL}/bot_by_id/bot_02a98020_eaf2_43d4_80b7_55537f3988ff`,
       method: 'POST',
@@ -139,7 +139,11 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
       .catch((err) => {
         console.log(err);
       })
-  }, [i18n.language]);
+  }
+
+  useEffect(() => {
+    fetchInfo();
+  }, []);
 
   useEffect(() => {
     if (noWelcomeMessage) {
@@ -273,7 +277,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
   return (
     <div className="flex-1 justify-between flex flex-col h-screen relative">
       <Header bot={bot} handleShowMenu={handleShowMenu} primary={primary} />
-      <Menu bot={bot} showHeaderMenu={showHeaderMenu} messages={messages} downloadPDF={downloadPDF} primary={primary} handleShowMenu={handleShowMenu} getDateTime={getDateTime} languages={languages} langToast={langToast} />
+      <Menu bot={bot} showHeaderMenu={showHeaderMenu} messages={messages} downloadPDF={downloadPDF} primary={primary} handleShowMenu={handleShowMenu} getDateTime={getDateTime} languages={languages} langToast={langToast} fetchInfo={fetchInfo} />
       <div id="message-list" ref={messageListRef} className="flex flex-col h-full px-[10px] py-3 sm:p-6 overflow-y-auto">
         <div id="messages-list-inside" className='w-auto h-auto'>
           {messages.map((message, index) => (

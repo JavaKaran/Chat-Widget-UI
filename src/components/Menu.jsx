@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
-const Menu = ({ showHeaderMenu, messages, downloadPDF, primary, handleShowMenu, bot, getDateTime, languages, langToast }) => {
+const Menu = ({ showHeaderMenu, messages, downloadPDF, primary, handleShowMenu, bot, getDateTime, languages, langToast, fetchInfo }) => {
 
     const { t, i18n } = useTranslation();
 
@@ -31,6 +31,7 @@ const Menu = ({ showHeaderMenu, messages, downloadPDF, primary, handleShowMenu, 
                 fontWeight: '500'
             }
         })
+        fetchInfo();
         i18n.changeLanguage(language.value);
     };
 
