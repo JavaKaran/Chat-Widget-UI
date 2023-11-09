@@ -1,5 +1,6 @@
 import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
     page: {
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
         // marginTop: 20,
         paddingHorizontal: 40,
         paddingVertical: 10,
-        borderColor: '#912d2a',
+        // borderColor: '#912d2a',
         borderStyle: 'solid',
         borderWidth: 1,
         borderRadius: 5,
@@ -103,21 +104,27 @@ const styles = StyleSheet.create({
     }
 })
 
-const ConversationPDF = ({ messages, bot, dateInfo }) => (
-    <Document>
-        <Page size="A4" style={styles.page}>
-            <View style={styles.imageContainer}>
-                <Image src="/assets/images/eaa-logo.png" style={styles.logo} />
-            </View>
-            <ChatMessage messages={messages} bot={bot} />
-            <View style={styles.moreInfoContainer}>
-                <Text style={styles.moreInfoText}>check out more info here:</Text>
-                <Text style={styles.siteLink}>https://www.educationaboveall.org/</Text>
-            </View>
-            <Text style={styles.date}>{dateInfo}</Text>
-        </Page>
-    </Document>
-)
+const ConversationPDF = ({ messages, bot, dateInfo, primary }) => {
+
+    const { t } = useTranslation();
+
+    return (
+        <Document>
+            <Page size="A4" style={styles.page}>
+                <View style={styles.imageContainer}>
+                    <Image src="/assets/images/eaa-logo.png" style={styles.logo} />
+                </View>
+                <ChatMessage messages={messages} bot={bot} />
+                <View style={[styles.moreInfoContainer, { borderColor: primary}]}>
+                    <Text style={styles.moreInfoText}>{t('check out more info here:')}</Text>
+                    <Text style={styles.siteLink}>https://www.educationaboveall.org/</Text>
+                </View>
+                <Text style={styles.date}>{dateInfo}</Text>
+            </Page>
+        </Document>
+    )
+}
+
 
 const ChatMessage = ({ messages, bot }) => {
 

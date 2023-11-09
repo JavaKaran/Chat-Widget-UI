@@ -12,13 +12,18 @@ import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import PDFGenerator from '../components/ConversationPDF.jsx';
 import html2pdf from 'html2pdf.js/dist/html2pdf.min';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import { useToaster } from 'react-hot-toast';
 
-const ChatWindow = ({ iframeDomain, botApiId }) => {
+const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
+
+  const { t, i18n } = useTranslation();
 
   let site = window.location.origin;
   let assetUrl = process.env.REACT_APP_ASSETS_URL;
   const apiURL = process.env.REACT_APP_API_URL;
+  const apiKey = process.env.REACT_APP_BOT_API_KEY;
 
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -27,20 +32,30 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   const [bot, setBot] = useState({
     name: '',
     description: "",
-    image: `${site}/background.png`,
-    primaryColor: '#912d2a'
+    image: `${site}/background.png`
   });
+  const [primary, setPrimary] = useState(primaryColor);
   const [disabled, setDisabled] = useState(true);
   const [noWelcomeMessage, setNoWelcomeMessage] = useState(false);
   const [showReport, setShowReport] = useState(false);
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
   const [showMessageMenu, setShowMessageMenu] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const languages = [
+    { id: 'english', name: 'English', value: 'en' },
+    { id: 'spanish', name: 'Spanish', value: 'es' },
+    { id: 'french', name: 'French', value: 'fr' },
+    { id: 'arabic', name: 'Arabic', value: 'ar' },
+    { id: 'russian', name: 'Russian', value: 'ru' },
+    { id: 'german', name: 'German', value: 'de' }
+  ];
 
   const [showSources, setShowSources] = useState(false);
 
   const textAreaRef = useRef();
   const messageListRef = useRef();
+  const didMount = useRef(false);
+  let langToast;
 
   const handleMessageSend = (text) => {
     if (isTyping) return;
@@ -66,7 +81,7 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
         domain: domain
       },
       headers: {
-        'Api-token': 'Vyhn1VFWqwM2LLvnaPpG'
+        'Api-token': apiKey
       }
     })
       .then((response) => {
@@ -74,27 +89,56 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
         if (response.status === 200 && response.data.data.length > 0) {
           let bot = response?.data?.data[0]?.attributes;
           let botImage = bot?.ProfileImage?.data?.attributes?.url;
-          setBot({
-            name: bot.Name ? bot.Name : "Brainstormer",
-            description: bot.Description ? bot.Description : "Let's Brainstorm the future!",
-            image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`,
-            primaryColor: '#912d2a'
-          })
-          setDisabled(false);
-          {
-            bot.WelcomeMessage ? (
-              <>
-                {setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'bot', text: bot.WelcomeMessage, reported: false }])}
-              </>
-            )
-              : setNoWelcomeMessage(true)
+
+          if (i18n.language === 'en') {
+
+            setBot({
+              name: bot.Name ? bot.Name : "Brainstormer",
+              description: bot.Description ? bot.Description : "Let's Brainstorm the future!",
+              image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`
+            })
+
+          } else {
+
+            let localizedData = bot?.localizations?.data?.find((lng) => lng?.attributes?.locale === i18n.language);
+
+            setBot({
+              name: localizedData?.attributes?.Name ? localizedData?.attributes?.Name : bot.Name,
+              description: localizedData?.attributes?.Description ? localizedData?.attributes?.Description : bot.Description,
+              image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`
+            })
           }
+
+          setDisabled(false);
+
+          if (messages.length === 0) {
+            bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'bot', text: bot.WelcomeMessage, reported: false }]) : setNoWelcomeMessage(true)
+          }
+
+          // toast.dismiss(langToast);
+
+          if(didMount.current){
+            toast.success(t('Language changed'), {
+              id: 'language',
+              position: 'top-right',
+              style: {
+                backgroundColor: 'white',
+                color: primary,
+                fontSize: '13px',
+                padding: '5px 7px',
+                fontWeight: '500'
+              }
+            })
+          } else {
+            didMount.current = true;
+          }
+
         }
       })
       .catch((err) => {
         console.log(err);
       })
-  }, []);
+  }, [i18n.language]);
 
   useEffect(() => {
     if (noWelcomeMessage) {
@@ -104,15 +148,19 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
   }, [noWelcomeMessage])
 
   const sendMessage = (text) => {
+
+    const language = languages.find((lng) => lng.value === i18n.language);
+
     axios({
       url: `${apiURL}/widget_handler`,
       method: 'POST',
       data: {
         "query": text ? text : 'hi, who are you and how can you help me?',
         "bot_id": `bot_${botId}`,
+        "language": language.name
       },
       headers: {
-        'Api-token': 'BLiEUe64EC4Wj7HPYPXa'
+        'Api-token': apiKey
       }
     })
       .then((response) => {
@@ -223,26 +271,26 @@ const ChatWindow = ({ iframeDomain, botApiId }) => {
 
   return (
     <div className="flex-1 justify-between flex flex-col h-screen relative">
-      <Header bot={bot} handleShowMenu={handleShowMenu} />
-      <Menu bot={bot} showHeaderMenu={showHeaderMenu} messages={messages} downloadPDF={downloadPDF} primaryColor={bot.primaryColor} handleShowMenu={handleShowMenu} getDateTime={getDateTime} />
-      <div id="message-list" ref={messageListRef} className="flex flex-col h-full pl-[10px] pr-0 py-3 sm:p-6 overflow-y-auto">
+      <Header bot={bot} handleShowMenu={handleShowMenu} primary={primary} />
+      <Menu bot={bot} showHeaderMenu={showHeaderMenu} messages={messages} downloadPDF={downloadPDF} primary={primary} handleShowMenu={handleShowMenu} getDateTime={getDateTime} languages={languages} langToast={langToast} />
+      <div id="message-list" ref={messageListRef} className="flex flex-col h-full px-[10px] py-3 sm:p-6 overflow-y-auto">
         <div id="messages-list-inside" className='w-auto h-auto'>
           {messages.map((message, index) => (
             <Message
               key={index}
               message={message}
               image={bot.image}
-              primaryColor={bot.primaryColor}
+              primary={primary}
               setShowReport={setShowReport}
               handleMessageMenu={handleMessageMenu}
             />
           ))}
-          {isTyping && <Typing image={bot.image} primaryColor={bot.primaryColor} />}
+          {isTyping && <Typing image={bot.image} primary={primary} />}
         </div>
       </div>
-      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primaryColor={bot.primaryColor} handleShowMenu={handleShowMenu} />
-      {showReport && <Report setShowReport={setShowReport} primaryColor={bot.primaryColor} fadeEffect={'zoomIn'} selectedMessage={selectedMessage} handleReport={handleReport} />}
-      <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primaryColor={bot.primaryColor} setShowReport={setShowReport} showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} selectedMessage={selectedMessage} getDateTime={getDateTime} />
+      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primary={primary} handleShowMenu={handleShowMenu} />
+      {showReport && <Report setShowReport={setShowReport} primary={primary} fadeEffect={'zoomIn'} selectedMessage={selectedMessage} handleReport={handleReport} />}
+      <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primary={primary} setShowReport={setShowReport} showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} selectedMessage={selectedMessage} getDateTime={getDateTime} />
       <Sources showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} />
       {/* <PDFGenerator messages={messages} /> */}
       <Toaster />

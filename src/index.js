@@ -4,18 +4,26 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import './services/i18n';
+import { useTranslation } from 'react-i18next';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let allowedDomains = process.env.REACT_APP_ALLOWED_DOMAINS?.split(',');
 
 const Main = () => {
+
+  const { i18n } = useTranslation();
+
   const [verified, setVerified] = useState(false);
   const [iframeDomain, setIframeDomain] = useState('demo.noesis.dev');
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const botId = urlParams?.get("bot");
+  const language = urlParams?.get('language');
+  const primaryColor = urlParams?.get('primaryColor');
+  // const language = "en";
 
   const handlePostMessage = (event) => {
 
@@ -39,6 +47,18 @@ const Main = () => {
 
   }, []);
 
+  useEffect(() => {
+
+    document.dir = i18n.dir();
+
+  }, [i18n, i18n.language]);
+
+  useEffect(() => {
+
+    i18n.changeLanguage(language ? language : "en");
+
+  }, [language])
+
   return (
     <React.StrictMode>
       <BrowserRouter>
@@ -46,7 +66,7 @@ const Main = () => {
         {/* {verified && botId && botId !== "null" && <App iframeDomain={iframeDomain} botApiId={botId} /> } */}
 
         {/* for local site */}
-        {<App iframeDomain={iframeDomain} botApiId='abb82836_bf04_4dd6_9fc1_b16d11e68a5f' />}
+        {<App iframeDomain={iframeDomain} botApiId='abb82836_bf04_4dd6_9fc1_b16d11e68a5f' primaryColor={primaryColor ? primaryColor : '#912d2a'} />}
       </BrowserRouter>
     </React.StrictMode>
   );
