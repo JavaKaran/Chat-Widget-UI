@@ -74,6 +74,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
   }, [messages]);
 
   const fetchInfo = () => {
+    
     axios({
       url: `${apiURL}/bot_by_id/bot_02a98020_eaf2_43d4_80b7_55537f3988ff`,
       method: 'POST',
