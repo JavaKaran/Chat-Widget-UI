@@ -11,7 +11,7 @@ SyntaxHighlighter.registerLanguage('python', python);
 SyntaxHighlighter.registerLanguage('javascript', javascript);
 SyntaxHighlighter.registerLanguage('markdown', markdown);
 
-const Message = ({ message, image, primaryColor, setShowReport, handleMessageMenu }) => {
+const Message = ({ message, image, primary, setShowReport, handleMessageMenu }) => {
 
   let citations = [
     {
@@ -50,7 +50,7 @@ const Message = ({ message, image, primaryColor, setShowReport, handleMessageMen
   }
 
   const textColor = message.sender === 'user' ? 'text-white' : 'text-gray-600';
-  const bgColor = message.sender === 'user' ? `bg-[${primaryColor}]` : 'bg-[#f5f5f5] border border-[#f5f5f5]';
+  const bgColor = message.sender === 'user' ? `bg-[${primary}]` : 'bg-[#f5f5f5] border border-[#f5f5f5]';
   const roundedClass = message.sender === 'user' ? 'rounded-br-none' : 'rounded-bl-none';
 
   const syntaxTheme = oneDark;
@@ -105,7 +105,7 @@ const Message = ({ message, image, primaryColor, setShowReport, handleMessageMen
               {message.text}
             </ReactMarkdown>
             {message.sender !== 'user' && (<button className='w-full flex pt-2 justify-end cursor-pointer disabled:cursor-not-allowed border-none bg-transparent' onClick={(e) => handleMessageMenu(e,message)} disabled={message.reported} >
-              <svg width="16" height="6" viewBox="0 0 17 3" fill={primaryColor} xmlns="http://www.w3.org/2000/svg">
+              <svg width="16" height="6" viewBox="0 0 17 3" fill={primary} xmlns="http://www.w3.org/2000/svg">
                 <circle cx="1.5" cy="1.5" r="1.5" />
                 <circle cx="8.5" cy="1.5" r="1.5" />
                 <circle cx="15.5" cy="1.5" r="1.5" />
