@@ -22,7 +22,7 @@ const Main = () => {
   const urlParams = new URLSearchParams(queryString);
   const botId = urlParams?.get("bot");
   const language = urlParams?.get('language');
-  const primaryColor = urlParams?.get('primaryColor');
+  const color1 = urlParams?.get('primary');
   // const language = "en";
 
   const handlePostMessage = (event) => {
@@ -66,7 +66,7 @@ const Main = () => {
         {/* {verified && botId && botId !== "null" && <App iframeDomain={iframeDomain} botApiId={botId} /> } */}
 
         {/* for local site */}
-        {<App iframeDomain={iframeDomain} botApiId='abb82836_bf04_4dd6_9fc1_b16d11e68a5f' primaryColor={primaryColor ? primaryColor : '#912d2a'} />}
+        {<App iframeDomain={iframeDomain} botApiId='abb82836_bf04_4dd6_9fc1_b16d11e68a5f' primaryColor={color1 ? `#${color1}` : '#912d2a'} />}
       </BrowserRouter>
     </React.StrictMode>
   );
