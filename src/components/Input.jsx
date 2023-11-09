@@ -6,18 +6,18 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
     const { t } = useTranslation();
 
     const textarea = textAreaRef.current;
-    const [selectedLanguage, setSelectedLanguage] = useState('English');
-    const [showLanguage, setShowLanguage] = useState(false);
+    // const [selectedLanguage, setSelectedLanguage] = useState('English');
+    // const [showLanguage, setShowLanguage] = useState(false);
 
-    const languages = [
-        { id: 'english', name: 'English' },
-        { id: 'spanish', name: 'Spanish' },
-        { id: 'french', name: 'French' },
-        { id: 'arabic', name: 'Arabic' },
-        { id: 'russian', name: 'Russian' },
-        { id: 'german', name: 'German' }
-        // Add more language options here
-      ];
+    // const languages = [
+    //     { id: 'english', name: 'English' },
+    //     { id: 'spanish', name: 'Spanish' },
+    //     { id: 'french', name: 'French' },
+    //     { id: 'arabic', name: 'Arabic' },
+    //     { id: 'russian', name: 'Russian' },
+    //     { id: 'german', name: 'German' }
+    //     // Add more language options here
+    // ];
 
     const handleSendClick = () => {
         if (textarea.value !== '') {
@@ -56,14 +56,14 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
         }
     };
 
-    const handleLanguages = () => {
-        setShowLanguage(!showLanguage);
-    }
+    // const handleLanguages = () => {
+    //     setShowLanguage(!showLanguage);
+    // }
 
-    const handleLanguageChange = (language) => {
-        setSelectedLanguage(language);
-        setShowLanguage(!showLanguage);
-    };
+    // const handleLanguageChange = (language) => {
+    //     setSelectedLanguage(language);
+    //     setShowLanguage(!showLanguage);
+    // };
 
     return (
         <div className="border-t-2 border-gray-200 p-2 sm:p-6 sm:mb-0 shadow-lg">
@@ -71,22 +71,27 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
                 {/* <div className='mr-[5px]' onClick={handleLanguages}>
                     <p className={`border-1 border-solid p-2 rounded-2xl uppercase mb-0 text-[10px] leading-[12px]`} style={{ color: primary, borderColor: primary }}>{selectedLanguage}</p>
                 </div> */}
-                <a className='dropup-icon-link px-[5px] cursor-pointer' onClick={handleShowMenu}> <img src="/assets/images/dropup-ic.svg" alt="dropup icon" /></a>
-                <div className={`fixed top-0 w-full h-full z-20 ${showLanguage ? 'block' : 'hidden'}`}  onClick={handleLanguages}>
+                <a className='dropup-icon-link px-[5px] cursor-pointer' onClick={handleShowMenu}>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="10" cy="10" r="9.5" stroke={primary} />
+                        <path d="M9.68847 7.1417L5.11884 12.2333C5.04256 12.3183 5 12.4311 5 12.5485C5 12.6659 5.04256 12.7788 5.11884 12.8637L5.124 12.8692C5.16099 12.9105 5.2055 12.9434 5.25484 12.9659C5.30418 12.9884 5.35731 13 5.411 13C5.4647 13 5.51783 12.9884 5.56717 12.9659C5.61651 12.9434 5.66102 12.9105 5.69801 12.8692L10.0009 8.07451L14.302 12.8692C14.339 12.9105 14.3835 12.9434 14.4328 12.9659C14.4822 12.9884 14.5353 13 14.589 13C14.6427 13 14.6958 12.9884 14.7452 12.9659C14.7945 12.9434 14.839 12.9105 14.876 12.8692L14.8812 12.8637C14.9574 12.7788 15 12.6659 15 12.5485C15 12.4311 14.9574 12.3183 14.8812 12.2333L10.3115 7.1417C10.2713 7.09692 10.223 7.06128 10.1695 7.03692C10.1159 7.01256 10.0583 7 10 7C9.94174 7 9.88409 7.01256 9.83054 7.03692C9.77699 7.06128 9.72866 7.09692 9.68847 7.1417Z" fill={primary} stroke={primary} stroke-width="0.5" />
+                    </svg>
+                </a>
+                {/* <div className={`fixed top-0 w-full h-full z-20 ${showLanguage ? 'block' : 'hidden'}`} onClick={handleLanguages}>
                     <div className='bg-[rgba(0,0,0,0.7)] flex justify-end flex-col h-full w-full'>
-                        
+
                     </div>
-                </div>
-                <div className={`language-ct rounded-t-xl bg-white p-3 pb-2 transition ease-in-out duration-500 divide-y divide-[#000000] w-full fixed bottom-0 left-0 z-50 ${showLanguage ? 'show-lang-menu' : 'hide-lang-menu'}`}>
+                </div> */}
+                {/* <div className={`language-ct rounded-t-xl bg-white p-3 pb-2 transition ease-in-out duration-500 divide-y divide-[#000000] w-full fixed bottom-0 left-0 z-50 ${showLanguage ? 'show-lang-menu' : 'hide-lang-menu'}`}>
                     <h2 className='font-semibold text-[15px] pb-[10px]'>{t('Select Language')}</h2>
-                     <ul className='language-list list-none p-0 max-h-[140px] overflow-y-auto'>
+                    <ul className='language-list list-none p-0 max-h-[140px] overflow-y-auto'>
                         {languages.map((language) => (
                             <li className={`py-[10px] text-[13px] border-b border-gray-400 ${selectedLanguage == language.name ? `text-[${primary}]` : 'text-[#333333]'}`} key={language.id} onClick={() => handleLanguageChange(language.name)}>
                                 {t(`${language.name}`)}
                             </li>
                         ))}
                     </ul>
-                </div>
+                </div> */}
                 <div className='relative w-[88%] flex'>
                     <textarea
                         placeholder={t('Write your message!')}
