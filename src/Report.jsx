@@ -48,7 +48,8 @@ const Report = ({ primary, setShowReport, selectedMessage, fadeEffect, handleRep
                                             value="Hateful"
                                             checked={selectedOption === "Hateful"}
                                             onChange={handleRadioChange}
-                                            className={`my-2 w-5 h-4 accent-[${primary}]`}
+                                            className={`my-2 w-5 h-4`}
+                                            style={{ accentColor: primary }}
                                         />
                                         <span className="ml-2 text-[13px] text-[#333333] ">{t('Hateful')}</span>
                                     </label>
@@ -60,7 +61,8 @@ const Report = ({ primary, setShowReport, selectedMessage, fadeEffect, handleRep
                                             value="Abusive and Harassment"
                                             checked={selectedOption === "Abusive and Harassment"}
                                             onChange={handleRadioChange}
-                                            className={`my-2 w-5 h-4 accent-[${primary}]`}
+                                            className={`my-2 w-5 h-4`}
+                                            style={{ accentColor: primary }}
                                         />
                                         <span className="ml-2 text-[13px] text-[#333333] ">{t('Abusive and Harassment')}</span>
                                     </label>
@@ -72,7 +74,8 @@ const Report = ({ primary, setShowReport, selectedMessage, fadeEffect, handleRep
                                             value="Spam"
                                             checked={selectedOption === "Spam"}
                                             onChange={handleRadioChange}
-                                            className={`my-2 w-5 h-4 accent-[${primary}]`}
+                                            className={`my-2 w-5 h-4`}
+                                            style={{ accentColor: primary }}
                                         />
                                         <span className="ml-2 text-[13px] text-[#333333]">{t('Spam')}</span>
                                     </label>
@@ -84,7 +87,8 @@ const Report = ({ primary, setShowReport, selectedMessage, fadeEffect, handleRep
                                             value="Other"
                                             checked={selectedOption === "Other"}
                                             onChange={handleRadioChange}
-                                            className={`my-2 w-5 h-4 accent-[${primary}]`}
+                                            className={`my-2 w-5 h-4`}
+                                            style={{ accentColor: primary }}
                                         />
                                         <span className="ml-2 text-[13px] text-[#333333]">{t('Other')}</span>
                                     </label>

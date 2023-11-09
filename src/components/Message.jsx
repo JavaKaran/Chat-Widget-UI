@@ -6,12 +6,15 @@ import javascript from 'react-syntax-highlighter/dist/cjs/languages/prism/javasc
 import python from 'react-syntax-highlighter/dist/cjs/languages/prism/python';
 import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown';
 import { oneDark, dracula, vscDarkPlus, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { useTranslation } from 'react-i18next';
 
 SyntaxHighlighter.registerLanguage('python', python);
 SyntaxHighlighter.registerLanguage('javascript', javascript);
 SyntaxHighlighter.registerLanguage('markdown', markdown);
 
 const Message = ({ message, image, primary, setShowReport, handleMessageMenu }) => {
+
+  const { t } = useTranslation();
 
   let citations = [
     {
@@ -112,7 +115,7 @@ const Message = ({ message, image, primary, setShowReport, handleMessageMenu }) 
               </svg>
             </button>)}
           </div>
-          {message.reported && <p className='text-[12px] leading-[12px] my-1 text-red-500'>This message has been reported!</p>}
+          {message.reported && <p className='text-[12px] leading-[12px] my-1 text-red-500'>{t('This message has been reported!')}</p>}
           {/* {message.sender !== 'user' && (
             <div className={`flex flex-col py-2 w-full`}>
               <div className='flex justify-between items-center w-full'>

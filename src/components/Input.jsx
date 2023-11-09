@@ -71,7 +71,7 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
                 {/* <div className='mr-[5px]' onClick={handleLanguages}>
                     <p className={`border-1 border-solid p-2 rounded-2xl uppercase mb-0 text-[10px] leading-[12px]`} style={{ color: primary, borderColor: primary }}>{selectedLanguage}</p>
                 </div> */}
-                <a className='dropup-icon-link px-[5px]' onClick={handleShowMenu}> <img src="/assets/images/dropup-ic.svg" alt="dropup icon" /></a>
+                <a className='dropup-icon-link px-[5px] cursor-pointer' onClick={handleShowMenu}> <img src="/assets/images/dropup-ic.svg" alt="dropup icon" /></a>
                 <div className={`fixed top-0 w-full h-full z-20 ${showLanguage ? 'block' : 'hidden'}`}  onClick={handleLanguages}>
                     <div className='bg-[rgba(0,0,0,0.7)] flex justify-end flex-col h-full w-full'>
                         

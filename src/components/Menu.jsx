@@ -56,7 +56,7 @@ const Menu = ({ showHeaderMenu, messages, downloadPDF, primary, handleShowMenu, 
     }
 
     useEffect(() => {
-        const lang = languages.find((lng) => i18n.language == lng.value)
+        const lang = languages.find((lng) => lng.value === i18n.language);
 
         setSelectedLanguage(lang?.name);
 
@@ -122,7 +122,7 @@ const Menu = ({ showHeaderMenu, messages, downloadPDF, primary, handleShowMenu, 
                 </div>
                 <ul className='language-list list-none p-0 max-h-[140px] overflow-y-auto '>
                     {languages.map((lng) => (
-                        <li className={`py-[10px] text-[13px] border-b border-gray-400 ${selectedLanguage == lng.name ? `text-[${primary}]` : 'text-[#333333]'}`} key={lng.id} value={lng.value} onClick={() => handleLanguageChange(lng)}>
+                        <li className={`py-[10px] text-[13px] border-b border-gray-400 cursor-pointer`} style={{ color: lng.name === selectedLanguage ? primary : '#333333' }} key={lng.id} value={lng.value} onClick={() => handleLanguageChange(lng)}>
                             {t(`${lng.name}`)}
                         </li>
                     ))}
