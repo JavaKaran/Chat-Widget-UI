@@ -74,50 +74,49 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
   }, [messages]);
 
   useEffect(() => {
-    axios({
-      url: `${apiURL}/bot_by_id/bot_02a98020_eaf2_43d4_80b7_55537f3988ff`,
-      method: 'POST',
-      data: {
-        domain: domain
-      },
-      headers: {
-        'Api-token': apiKey
-      }
-    })
-      .then((response) => {
-        // console.log(response);
-        if (response.status === 200 && response.data.data.length > 0) {
-          let bot = response?.data?.data[0]?.attributes;
-          let botImage = bot?.ProfileImage?.data?.attributes?.url;
+    if (didMount.current) {
+      axios({
+        url: `${apiURL}/bot_by_id/bot_02a98020_eaf2_43d4_80b7_55537f3988ff`,
+        method: 'POST',
+        data: {
+          domain: domain
+        },
+        headers: {
+          'Api-token': apiKey
+        }
+      })
+        .then((response) => {
+          // console.log(response);
+          if (response.status === 200 && response.data.data.length > 0) {
+            let bot = response?.data?.data[0]?.attributes;
+            let botImage = bot?.ProfileImage?.data?.attributes?.url;
 
-          if (i18n.language === 'en') {
+            if (i18n.language === 'en') {
 
-            setBot({
-              name: bot.Name ? bot.Name : "Brainstormer",
-              description: bot.Description ? bot.Description : "Let's Brainstorm the future!",
-              image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`
-            })
+              setBot({
+                name: bot.Name ? bot.Name : "Brainstormer",
+                description: bot.Description ? bot.Description : "Let's Brainstorm the future!",
+                image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`
+              })
 
-          } else {
+            } else {
 
-            let localizedData = bot?.localizations?.data?.find((lng) => lng?.attributes?.locale === i18n.language);
+              let localizedData = bot?.localizations?.data?.find((lng) => lng?.attributes?.locale === i18n.language);
 
-            setBot({
-              name: localizedData?.attributes?.Name ? localizedData?.attributes?.Name : bot.Name,
-              description: localizedData?.attributes?.Description ? localizedData?.attributes?.Description : bot.Description,
-              image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`
-            })
-          }
+              setBot({
+                name: localizedData?.attributes?.Name ? localizedData?.attributes?.Name : bot.Name,
+                description: localizedData?.attributes?.Description ? localizedData?.attributes?.Description : bot.Description,
+                image: botImage ? `${assetUrl}${botImage}` : `${site}/App-icon.png`
+              })
+            }
 
-          setDisabled(false);
+            setDisabled(false);
 
-          if (messages.length === 0) {
-            bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'bot', text: bot.WelcomeMessage, reported: false }]) : setNoWelcomeMessage(true)
-          }
+            if (messages.length === 0) {
+              bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'bot', text: bot.WelcomeMessage, reported: false }]) : setNoWelcomeMessage(true)
+            }
 
-          // toast.dismiss(langToast);
-
-          if(didMount.current){
+            // toast.dismiss(langToast);
             toast.success(t('Language changed'), {
               id: 'language',
               position: 'top-right',
@@ -129,15 +128,16 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
                 fontWeight: '500'
               }
             })
-          } else {
-            didMount.current = true;
-          }
 
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    } else {
+      didMount.current = true;
+    }
   }, [i18n.language]);
 
   useEffect(() => {

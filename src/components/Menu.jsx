@@ -58,7 +58,7 @@ const Menu = ({ showHeaderMenu, messages, downloadPDF, primary, handleShowMenu, 
     useEffect(() => {
         const lang = languages.find((lng) => i18n.language == lng.value)
 
-        setSelectedLanguage(lang.name);
+        setSelectedLanguage(lang?.name);
 
     }, [i18n.language]);
 
