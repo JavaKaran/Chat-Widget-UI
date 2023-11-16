@@ -1,22 +1,35 @@
-import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/renderer';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import NotoSansRegular from '../fonts/NotoSans-Regular.ttf';
+import NotoArabicSans from '../fonts/NotoSansArabic-Regular.ttf';
+
+Font.registerEmojiSource({
+    format: 'png',
+    url: "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/",
+});
+
+Font.register({ family: "NotoSans", src: NotoSansRegular });
+Font.register({ family: "NotoSansArabic", src: NotoArabicSans });
 
 const styles = StyleSheet.create({
     page: {
-        padding: 20,
+        paddingHorizontal: 20,
+        paddingVertical: 30
     },
     userMessage: {
         marginBottom: 10,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         display: 'flex',
+        fontFamily: 'NotoSansArabic'
     },
     botMessage: {
         marginBottom: 10,
         alignItems: 'flex-start',
         display: 'flex',
         justifyContent: 'flex-start',
+        fontFamily: 'NotoSansArabic'
     },
     messageContainer: {
         flexDirection: 'row',
@@ -30,7 +43,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderBottomLeftRadius: 0,
         maxWidth: '85%',
-        lineHeight: 1.2
+        lineHeight: 1.2,
+        fontFamily: 'NotoSansArabic'
     },
     userText: {
         fontSize: 11,
@@ -40,7 +54,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderBottomRightRadius: 0,
         maxWidth: '85%',
-        lineHeight: 1.2
+        lineHeight: 1.2,
+        fontFamily: 'NotoSansArabic'
     },
     icon: {
         width: 12,
@@ -66,6 +81,7 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 1,
         borderRadius: 5,
+        minWidth: '70%',
         maxWidth: '70%',
         margin: 'auto',
         marginBottom: 20,
@@ -78,7 +94,8 @@ const styles = StyleSheet.create({
         fontSize: 9,
         textAlign: 'center',
         fontWeight: 'bold',
-        marginBottom: 5
+        marginBottom: 5,
+        fontFamily: 'NotoSansArabic'
     },
     siteLink: {
         fontSize: 11,
@@ -95,7 +112,8 @@ const styles = StyleSheet.create({
         fontSize: 11,
         lineHeight: 1.2,
         textAlign: 'right',
-        fontWeight: 'heavy'
+        fontWeight: 'heavy',
+        fontFamily: 'NotoSansArabic'
     },
     date: {
         fontSize: 10,
