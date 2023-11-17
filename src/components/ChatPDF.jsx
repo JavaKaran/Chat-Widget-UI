@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
         fontSize: 11,
         paddingVertical: 5,
         lineHeight: 1.2,
-        fontFamily: 'NotoSansArabic'
     },
     icon: {
         width: 12,
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         marginBottom: 5,
-        fontFamily: 'NotoSansArabic'
     },
     siteLink: {
         fontSize: 11,
@@ -77,7 +75,7 @@ const styles = StyleSheet.create({
 
 const ChatPDF = ({ message, dateInfo, primary }) => {
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     return (
         <Document>
@@ -85,9 +83,9 @@ const ChatPDF = ({ message, dateInfo, primary }) => {
                 <View style={styles.imageContainer}>
                     <Image src="/assets/images/eaa-logo.png" style={styles.logo} />
                 </View>
-                <Text style={styles.message}>{message}</Text>
+                <Text style={[styles.message, { fontFamily: i18n.language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>{message}</Text>
                 <View style={[styles.moreInfoContainer, { borderColor: primary }]}>
-                    <Text style={styles.moreInfoText}>{t('check out more info here:')}</Text>
+                    <Text style={[styles.moreInfoText, { fontFamily: i18n.language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>{t('check out more info here:')}</Text>
                     <Text style={styles.siteLink}>https://www.educationaboveall.org/</Text>
                 </View>
                 <Text style={styles.date}>{dateInfo}</Text>
