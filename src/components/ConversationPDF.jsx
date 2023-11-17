@@ -22,14 +22,12 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         display: 'flex',
-        fontFamily: 'NotoSansArabic'
     },
     botMessage: {
         marginBottom: 10,
         alignItems: 'flex-start',
         display: 'flex',
         justifyContent: 'flex-start',
-        fontFamily: 'NotoSansArabic'
     },
     messageContainer: {
         flexDirection: 'row',
@@ -44,7 +42,6 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 0,
         maxWidth: '85%',
         lineHeight: 1.2,
-        fontFamily: 'NotoSansArabic'
     },
     userText: {
         fontSize: 11,
@@ -55,7 +52,6 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 0,
         maxWidth: '85%',
         lineHeight: 1.2,
-        fontFamily: 'NotoSansArabic'
     },
     icon: {
         width: 12,
@@ -95,7 +91,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         marginBottom: 5,
-        fontFamily: 'NotoSansArabic'
     },
     siteLink: {
         fontSize: 11,
@@ -113,7 +108,6 @@ const styles = StyleSheet.create({
         lineHeight: 1.2,
         textAlign: 'right',
         fontWeight: 'heavy',
-        fontFamily: 'NotoSansArabic'
     },
     date: {
         fontSize: 10,
@@ -124,7 +118,7 @@ const styles = StyleSheet.create({
 
 const ConversationPDF = ({ messages, bot, dateInfo, primary }) => {
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     return (
         <Document>
@@ -132,9 +126,9 @@ const ConversationPDF = ({ messages, bot, dateInfo, primary }) => {
                 <View style={styles.imageContainer}>
                     <Image src="/assets/images/eaa-logo.png" style={styles.logo} />
                 </View>
-                <ChatMessage messages={messages} bot={bot} />
+                <ChatMessage messages={messages} bot={bot} language={i18n.language} />
                 <View style={[styles.moreInfoContainer, { borderColor: primary}]}>
-                    <Text style={styles.moreInfoText}>{t('check out more info here:')}</Text>
+                    <Text style={[styles.moreInfoText, {fontFamily: i18n.language == 'ar' ? 'NotoSansArabic' : 'NotoSans'}]}>{t('check out more info here:')}</Text>
                     <Text style={styles.siteLink}>https://www.educationaboveall.org/</Text>
                 </View>
                 <Text style={styles.date}>{dateInfo}</Text>
@@ -144,12 +138,12 @@ const ConversationPDF = ({ messages, bot, dateInfo, primary }) => {
 }
 
 
-const ChatMessage = ({ messages, bot }) => {
+const ChatMessage = ({ messages, bot, language }) => {
 
     const rows = messages.map((item, key) =>
-        <View style={item.sender === 'bot' ? styles.botMessage : styles.userMessage} key={key}>
-            <Text style={item.sender === 'bot' ? styles.botName : styles.name}>{item.sender === 'bot' ? bot?.name : "User"}:</Text>
-            <Text style={item.sender === 'bot' ? styles.botText : styles.userText}>
+        <View style={[item.sender === 'bot' ? styles.botMessage : styles.userMessage, { fontFamily: language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]} key={key}>
+            <Text style={[item.sender === 'bot' ? styles.botName : styles.name, { fontFamily: language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>{item.sender === 'bot' ? bot?.name : "User"}:</Text>
+            <Text style={[item.sender === 'bot' ? styles.botText : styles.userText, { fontFamily: language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>
                 {item.text}
             </Text>
         </View>
