@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import ChatPDF from "./ChatPDF";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import { analytic } from "../utils/Analytics";
 
 const MessageMenu = ({ showMessageMenu, handleMessageMenu, primary, setShowReport, showSources, setShowSources, handleSourceMenu, selectedMessage, getDateTime }) => {
 
@@ -23,6 +24,13 @@ const MessageMenu = ({ showMessageMenu, handleMessageMenu, primary, setShowRepor
     })
 
     const handlePDFDownload = () => {
+
+        let data = {
+            share_type: 'message'
+        }
+
+        analytic("share_event",data,null);
+
         toast(t('PDF Downloaded'),{
             duration: 1500,
             position: 'top-right',

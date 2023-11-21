@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { analytic } from '../utils/Analytics';
 
 const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled, primary, handleShowMenu }) => {
 
@@ -101,7 +102,7 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
                         rows={'1'}
                         onChange={handleTextareaChange}
                     />
-                    <div className='absolute top-1.5 right-2 cursor-pointer' onClick={handleSendClick} disabled={isTyping || disabled}>
+                    <div className='absolute top-1.5 right-2 cursor-pointer send-message' onClick={handleSendClick} disabled={isTyping || disabled}>
                         <svg width="15" height="15" viewBox="0 0 19 18" xmlns="http://www.w3.org/2000/svg" fill={primary}>
                             <path d="M18.588 8.33263L2.08802 0.0826268C1.9587 0.0179519 1.81344 -0.00796197 1.66973 0.00800564C1.52602 0.0239732 1.38999 0.0811415 1.27802 0.172627C1.17109 0.262246 1.09128 0.379917 1.04756 0.51241C1.00383 0.644903 0.997935 0.786965 1.03052 0.922627L3.25052 9.00013L1.00052 17.0551C0.969944 17.1684 0.966374 17.2873 0.990102 17.4022C1.01383 17.5171 1.06419 17.6249 1.13714 17.7168C1.21009 17.8087 1.30359 17.8822 1.41012 17.9315C1.51666 17.9807 1.63325 18.0042 1.75052 18.0001C1.86793 17.9994 1.98353 17.9712 2.08802 17.9176L18.588 9.66763C18.7109 9.60469 18.814 9.50907 18.886 9.39129C18.958 9.27352 18.9961 9.13816 18.9961 9.00013C18.9961 8.86209 18.958 8.72674 18.886 8.60896C18.814 8.49119 18.7109 8.39557 18.588 8.33263ZM2.91302 15.8326L4.57052 9.75013H11.5005V8.25013H4.57052L2.91302 2.16763L16.5705 9.00013L2.91302 15.8326Z" />
                         </svg>

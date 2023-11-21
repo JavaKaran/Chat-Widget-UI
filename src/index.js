@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './services/i18n';
 import { useTranslation } from 'react-i18next';
+import ReactGA from 'react-ga4';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -58,6 +59,8 @@ const Main = () => {
     i18n.changeLanguage(language ? language : "en");
 
   }, [language])
+
+  ReactGA.initialize(process.env.REACT_APP_MEASUREMENT_ID);
 
   return (
     <React.StrictMode>

@@ -4,6 +4,7 @@ import ConversationPDF from "./ConversationPDF";
 import { useEffect, useState } from 'react';
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import { analytic } from "../utils/Analytics";
 
 const Menu = ({ showHeaderMenu, messages, downloadPDF, primary, handleShowMenu, bot, getDateTime, languages, langToast, fetchInfo }) => {
 
@@ -42,6 +43,13 @@ const Menu = ({ showHeaderMenu, messages, downloadPDF, primary, handleShowMenu, 
     })
 
     const handlePDFDownload = () => {
+
+        let data = {
+            share_type: 'conversation'
+        }
+
+        analytic("share_event",data,null);
+        
         handleShowMenu();
         toast(t('PDF Downloaded'), {
             duration: 1500,
