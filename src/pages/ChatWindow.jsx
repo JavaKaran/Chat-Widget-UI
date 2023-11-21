@@ -68,7 +68,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
       bot_name: bot.name
     }
 
-    analytic("send_message",data,null);
+    analytic("send_message", data, null);
   };
 
   const scrollToEnd = () => {
@@ -81,7 +81,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
   }, [messages]);
 
   const fetchInfo = () => {
-    
+
     axios({
       url: `${apiURL}/bot_by_id/bot_${botId}`,
       method: 'POST',
@@ -146,6 +146,16 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
       })
       .catch((err) => {
         console.log(err);
+        toast.error('Something broke! Please try later.', {
+          position: 'top-right',
+          style: {
+            backgroundColor: 'white',
+            color: primary,
+            fontSize: '13px',
+            padding: '5px 7px',
+            fontWeight: '500'
+          }
+        })
       })
   }
 
@@ -155,7 +165,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
       parent_domain: domain
     }
 
-    analytic("app_invokation",data,null);
+    analytic("app_invokation", data, null);
 
     fetchInfo();
 
@@ -193,6 +203,18 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
       })
       .catch((err) => {
         console.log(err);
+        setIsTyping(false);
+        setNoWelcomeMessage(false);
+        toast.error('Something broke! Please try later.', {
+          position: 'top-right',
+          style: {
+            backgroundColor: 'white',
+            color: primary,
+            fontSize: '13px',
+            padding: '5px 7px',
+            fontWeight: '500'
+          }
+        })
       })
   }
 
