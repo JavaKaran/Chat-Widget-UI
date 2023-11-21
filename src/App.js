@@ -3,8 +3,10 @@ import Print from './pages/Print.jsx';
 import ChatWindow from './pages/ChatWindow.jsx';
 import TagManager from 'react-gtm-module';
 
+const gtmID = process.env.REACT_APP_GTM_ID;
+
 const tagManagerArgs = {
-    gtmId: 'GTM-WJBZ9HD2'
+    gtmId: gtmID
 }
 
 TagManager.initialize(tagManagerArgs);

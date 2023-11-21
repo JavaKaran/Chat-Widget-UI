@@ -60,7 +60,7 @@ const Main = () => {
 
   }, [language])
 
-  ReactGA.initialize("G-2KWM8FG5PK");
+  ReactGA.initialize(process.env.REACT_APP_MEASUREMENT_ID);
 
   return (
     <React.StrictMode>
