@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled, primary, handleShowMenu }) => {
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const textarea = textAreaRef.current;
     // const [selectedLanguage, setSelectedLanguage] = useState('English');
@@ -95,7 +95,7 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
                 <div className='relative w-[88%] flex'>
                     <textarea
                         placeholder={t('Write your message!')}
-                        className="w-full border border-[#e9e9e9] focus:placeholder-gray-400 placeholder-gray-600 text-black outline-none bg-[#fcfcfc] rounded-md pl-2 py-[10px] sm:p-4 resize-none text-[13px] leading-[17px] sm:text-sm message-input pr-[30px]"
+                        className={`w-full border border-[#e9e9e9] focus:placeholder-gray-400 placeholder-gray-600 text-black outline-none bg-[#fcfcfc] rounded-md pl-2 py-[10px] sm:p-4 resize-none text-[13px] leading-[17px] sm:text-sm message-input pr-[30px] ${i18n.language == 'ar' && 'text-right'}`}
                         ref={textAreaRef}
                         onKeyDown={handleKeyDown}
                         rows={'1'}
