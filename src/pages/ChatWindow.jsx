@@ -15,6 +15,7 @@ import html2pdf from 'html2pdf.js/dist/html2pdf.min';
 import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useToaster } from 'react-hot-toast';
+import { analytic } from '../utils/Analytics.js';
 
 const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
 
@@ -62,6 +63,12 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
     setIsTyping(true);
     setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'user', text, reported: false }]);
     sendMessage(text);
+
+    let data = {
+      bot_name: bot.name
+    }
+
+    analytic("send_message",data,null);
   };
 
   const scrollToEnd = () => {
@@ -143,7 +150,15 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
   }
 
   useEffect(() => {
+
+    let data = {
+      parent_domain: domain
+    }
+
+    analytic("app_invokation",data,null);
+
     fetchInfo();
+
   }, []);
 
   useEffect(() => {
