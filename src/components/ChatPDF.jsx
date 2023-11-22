@@ -1,4 +1,4 @@
-import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Image, Font, Link } from '@react-pdf/renderer';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import NotoSansRegular from '../fonts/NotoSans-Regular.ttf';
@@ -86,7 +86,7 @@ const ChatPDF = ({ message, dateInfo, primary }) => {
                 <Text style={[styles.message, { fontFamily: i18n.language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>{message}</Text>
                 <View style={[styles.moreInfoContainer, { borderColor: primary }]}>
                     <Text style={[styles.moreInfoText, { fontFamily: i18n.language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>{t('check out more info here:')}</Text>
-                    <Text style={styles.siteLink}>https://www.educationaboveall.org/</Text>
+                    <Text style={styles.siteLink}><Link src="https://www.educationaboveall.org/">https://www.educationaboveall.org/</Link></Text>
                 </View>
                 <Text style={styles.date}>{dateInfo}</Text>
             </Page>
