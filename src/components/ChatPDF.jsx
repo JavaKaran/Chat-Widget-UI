@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
         fontSize: 11,
         textAlign: 'center',
         fontWeight: 'heavy',
-        textDecoration: 'underline'
+        textDecoration: 'underline',
+        color: 'black'
     },
     date: {
         fontSize: 10,
@@ -86,7 +87,7 @@ const ChatPDF = ({ message, dateInfo, primary }) => {
                 <Text style={[styles.message, { fontFamily: i18n.language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>{message}</Text>
                 <View style={[styles.moreInfoContainer, { borderColor: primary }]}>
                     <Text style={[styles.moreInfoText, { fontFamily: i18n.language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>{t('check out more info here:')}</Text>
-                    <Text style={styles.siteLink}><Link src="https://www.educationaboveall.org/">https://www.educationaboveall.org/</Link></Text>
+                    <Link src="https://www.educationaboveall.org/" style={styles.siteLink}><Text>https://www.educationaboveall.org/</Text></Link>
                 </View>
                 <Text style={styles.date}>{dateInfo}</Text>
             </Page>
