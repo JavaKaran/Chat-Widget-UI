@@ -142,10 +142,10 @@ const ConversationPDF = ({ messages, bot, dateInfo, primary }) => {
 const ChatMessage = ({ messages, bot, language }) => {
 
     const rows = messages.map((item, key) =>
-        <View style={[item.sender === 'bot' ? styles.botMessage : styles.userMessage, { fontFamily: language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]} key={key}>
-            <Text style={[item.sender === 'bot' ? styles.botName : styles.name, { fontFamily: language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>{item.sender === 'bot' ? bot?.name : "User"}:</Text>
-            <Text style={[item.sender === 'bot' ? styles.botText : styles.userText, { fontFamily: language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>
-                {item.text}
+        <View style={[item.role === 'assistant' ? styles.botMessage : styles.userMessage, { fontFamily: language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]} key={key}>
+            <Text style={[item.role === 'assistant' ? styles.botName : styles.name, { fontFamily: language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>{item.role === 'assistant' ? bot?.name : "User"}:</Text>
+            <Text style={[item.role === 'assistant' ? styles.botText : styles.userText, { fontFamily: language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>
+                {item.content}
             </Text>
         </View>
     );

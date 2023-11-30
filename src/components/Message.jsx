@@ -52,9 +52,9 @@ const Message = ({ message, image, primary, setShowReport, handleMessageMenu }) 
     setShowReport(true);
   }
 
-  const textColor = message.sender === 'user' ? 'text-white' : 'text-gray-600';
-  const bgColor = message.sender === 'user' ? `bg-[${primary}]` : 'bg-[#f5f5f5] border border-[#f5f5f5]';
-  const roundedClass = message.sender === 'user' ? 'rounded-br-none' : 'rounded-bl-none';
+  const textColor = message.role === 'user' ? 'text-white' : 'text-gray-600';
+  const bgColor = message.role === 'user' ? `bg-[${primary}]` : 'bg-[#f5f5f5] border border-[#f5f5f5]';
+  const roundedClass = message.role === 'user' ? 'rounded-br-none' : 'rounded-bl-none';
 
   const syntaxTheme = oneDark;
 
@@ -97,17 +97,17 @@ const Message = ({ message, image, primary, setShowReport, handleMessageMenu }) 
 
   return (
     <div className="chat-message my-[10px] sm:my-2">
-      <div className={`flex items-start ${message.sender === 'user' ? 'justify-end' : ''}`}>
-        <div className={`flex flex-col max-w-[75%] sm:max-w-[70%] ${message.sender === 'user' && 'mr-0'} mx-2 order-${message.sender === 'user' ? '1' : 'last'} items-${message.sender === 'user' ? 'end' : 'start rounded-xl rounded-bl-none'}`}>
-          <div className={`py-2 px-3 rounded-xl w-full ${message.sender === 'user' && 'whitespace-pre-wrap'} break-words ${roundedClass} ${bgColor} ${textColor} ${message.sender} ${message.reported ? 'opacity-50' : ''}`}>
+      <div className={`flex items-start ${message.role === 'user' ? 'justify-end' : ''}`}>
+        <div className={`flex flex-col max-w-[75%] sm:max-w-[70%] ${message.role === 'user' && 'mr-0'} mx-2 order-${message.role === 'user' ? '1' : 'last'} items-${message.role === 'user' ? 'end' : 'start rounded-xl rounded-bl-none'}`}>
+          <div className={`py-2 px-3 rounded-xl w-full ${message.role === 'user' && 'whitespace-pre-wrap'} break-words ${roundedClass} ${bgColor} ${textColor} ${message.role} ${message.reported ? 'opacity-50' : ''}`}>
             <ReactMarkdown
               components={MarkdownComponents}
               className='markdown-text'
               remarkPlugins={[remarkGfm]}
             >
-              {message.text}
+              {message.content}
             </ReactMarkdown>
-            {message.sender !== 'user' && (<button className='w-full flex pt-2 justify-end cursor-pointer disabled:cursor-not-allowed border-none bg-transparent' onClick={(e) => handleMessageMenu(e,message)} disabled={message.reported} >
+            {message.role !== 'user' && (<button className='w-full flex pt-2 justify-end cursor-pointer disabled:cursor-not-allowed border-none bg-transparent' onClick={(e) => handleMessageMenu(e,message)} disabled={message.reported} >
               <svg width="16" height="6" viewBox="0 0 17 3" fill={primary} xmlns="http://www.w3.org/2000/svg">
                 <circle cx="1.5" cy="1.5" r="1.5" />
                 <circle cx="8.5" cy="1.5" r="1.5" />
@@ -116,7 +116,7 @@ const Message = ({ message, image, primary, setShowReport, handleMessageMenu }) 
             </button>)}
           </div>
           {message.reported && <p className='text-[12px] leading-[12px] my-1 text-red-500'>{t('This message has been reported!')}</p>}
-          {/* {message.sender !== 'user' && (
+          {/* {message.role !== 'user' && (
             <div className={`flex flex-col py-2 w-full`}>
               <div className='flex justify-between items-center w-full'>
                 <div className='flex ml-2'>
@@ -142,7 +142,7 @@ const Message = ({ message, image, primary, setShowReport, handleMessageMenu }) 
             </div>
           )} */}
         </div>
-        {message.sender !== "user" && <img src={image} alt="My profile" className="w-7 h-7 rounded-full order-first" />}
+        {message.role !== "user" && <img src={image} alt="My profile" className="w-7 h-7 rounded-full order-first" />}
       </div>
     </div>
   );
