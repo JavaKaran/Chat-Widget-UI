@@ -99,7 +99,7 @@ const Message = ({ message, image, primary, setShowReport, handleMessageMenu }) 
     <div className="chat-message my-[10px] sm:my-2">
       <div className={`flex items-start ${message.role === 'user' ? 'justify-end' : ''}`}>
         <div className={`flex flex-col max-w-[75%] sm:max-w-[70%] ${message.role === 'user' && 'mr-0'} mx-2 order-${message.role === 'user' ? '1' : 'last'} items-${message.role === 'user' ? 'end' : 'start rounded-xl rounded-bl-none'}`}>
-          <div className={`py-2 px-3 rounded-xl w-full ${message.role === 'user' && 'whitespace-pre-wrap'} break-words ${roundedClass} ${bgColor} ${textColor} ${message.role} ${message.reported ? 'opacity-50' : ''}`}>
+          <div className={`py-2 px-3 rounded-xl w-full ${message.role === 'user' && 'whitespace-pre-wrap'} break-words ${roundedClass} ${bgColor} ${textColor} ${message.role} ${message.is_flagged ? 'opacity-50' : ''}`}>
             <ReactMarkdown
               components={MarkdownComponents}
               className='markdown-text'
@@ -107,7 +107,7 @@ const Message = ({ message, image, primary, setShowReport, handleMessageMenu }) 
             >
               {message.content}
             </ReactMarkdown>
-            {message.role !== 'user' && (<button className='w-full flex pt-2 justify-end cursor-pointer disabled:cursor-not-allowed border-none bg-transparent' onClick={(e) => handleMessageMenu(e,message)} disabled={message.reported} >
+            {message.role !== 'user' && (<button className='w-full flex pt-2 justify-end cursor-pointer disabled:cursor-not-allowed border-none bg-transparent' onClick={(e) => handleMessageMenu(e,message)} disabled={message.is_flagged} >
               <svg width="16" height="6" viewBox="0 0 17 3" fill={primary} xmlns="http://www.w3.org/2000/svg">
                 <circle cx="1.5" cy="1.5" r="1.5" />
                 <circle cx="8.5" cy="1.5" r="1.5" />
@@ -115,7 +115,7 @@ const Message = ({ message, image, primary, setShowReport, handleMessageMenu }) 
               </svg>
             </button>)}
           </div>
-          {message.reported && <p className='text-[12px] leading-[12px] my-1 text-red-500'>{t('This message has been reported!')}</p>}
+          {message.is_flagged == '1' && <p className='text-[12px] leading-[12px] my-1 text-red-500'>{t('This message has been reported!')}</p>}
           {/* {message.role !== 'user' && (
             <div className={`flex flex-col py-2 w-full`}>
               <div className='flex justify-between items-center w-full'>
