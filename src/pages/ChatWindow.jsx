@@ -61,7 +61,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
   const handleMessageSend = (text) => {
     if (isTyping) return;
     setIsTyping(true);
-    setMessages((prevMessage) => [...prevMessage, { role: 'user', content: text }]);
+    setMessages((prevMessage) => [...prevMessage, { role: 'user', content: text, is_flagged: 0, reason: '' }]);
     sendMessage(text);
 
     let data = {
@@ -130,7 +130,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
             setMessages([...response.data.chat.chat_history]);
           } else {
             if (messages.length === 0) {
-              bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { role: 'assistant', content: bot.WelcomeMessage }]) : setNoWelcomeMessage(true)
+              bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { role: 'assistant', content: bot.WelcomeMessage, is_flagged: 0, reason: '' }]) : setNoWelcomeMessage(true)
             }
           }
 
@@ -188,7 +188,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
 
   useEffect(() => {
     if (noWelcomeMessage) {
-      setMessages((prevMessage) => [...prevMessage, { role: 'assistant', content: 'Welcome my master. Your message is my command!' }]);
+      setMessages((prevMessage) => [...prevMessage, { role: 'assistant', content: 'Welcome my master. Your message is my command!', is_flagged: 0, reason: '' }]);
       setNoWelcomeMessage(false);
     }
   }, [noWelcomeMessage])
@@ -219,7 +219,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
     })
       .then((response) => {
         if (response.data.status === 'success') {
-          setMessages((prevMessage) => [...prevMessage, { role: 'assistant', content: response.data.message }]);
+          setMessages((prevMessage) => [...prevMessage, { role: 'assistant', content: response.data.message, is_flagged: 0, reason: '' }]);
           setIsTyping(false);
           setNoWelcomeMessage(false);
         }
@@ -327,14 +327,6 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
     }
   }
 
-  const handleReport = () => {
-    const messageToReport = messages.find((msg) => msg.id === selectedMessage.id);
-
-    if (messageToReport) {
-      messages[messageToReport.id].reported = true;
-    }
-  }
-
   return (
     <div className="flex-1 justify-between flex flex-col h-screen relative">
       <Header bot={bot} handleShowMenu={handleShowMenu} primary={primary} />
@@ -355,7 +347,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
         </div>
       </div>
       <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primary={primary} handleShowMenu={handleShowMenu} />
-      {showReport && <Report setShowReport={setShowReport} primary={primary} fadeEffect={'zoomIn'} selectedMessage={selectedMessage} handleReport={handleReport} />}
+      {showReport && <Report setShowReport={setShowReport} primary={primary} fadeEffect={'zoomIn'} selectedMessage={selectedMessage} messages={messages} />}
       <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primary={primary} setShowReport={setShowReport} showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} selectedMessage={selectedMessage} getDateTime={getDateTime} />
       <Sources showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} />
       {/* <PDFGenerator messages={messages} /> */}
