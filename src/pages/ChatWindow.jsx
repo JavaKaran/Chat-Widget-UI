@@ -61,7 +61,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
   const handleMessageSend = (text) => {
     if (isTyping) return;
     setIsTyping(true);
-    setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'user', text, reported: false }]);
+    setMessages((prevMessage) => [...prevMessage, { role: 'user', content: text, is_flagged: 0, reason: '' }]);
     sendMessage(text);
 
     let data = {
@@ -81,13 +81,20 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
   }, [messages]);
 
   const fetchInfo = () => {
+    let chat_id = localStorage.getItem('chatId');
+
+    let requestData = {
+      domain: domain
+    }
+
+    if(chat_id){
+      requestData.chat_id = chat_id
+    }
 
     axios({
       url: `${apiURL}/bot_by_id/bot_${botId}`,
       method: 'POST',
-      data: {
-        domain: domain
-      },
+      data: requestData,
       headers: {
         'Api-token': apiKey
       }
@@ -119,8 +126,12 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
 
           setDisabled(false);
 
-          if (messages.length === 0) {
-            bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'bot', text: bot.WelcomeMessage, reported: false }]) : setNoWelcomeMessage(true)
+          if(response.data.chat){
+            setMessages([...response.data.chat.chat_history]);
+          } else {
+            if (messages.length === 0) {
+              bot.WelcomeMessage ? setMessages((prevMessage) => [...prevMessage, { role: 'assistant', content: bot.WelcomeMessage, is_flagged: 0, reason: '' }]) : setNoWelcomeMessage(true)
+            }
           }
 
           // toast.dismiss(langToast);
@@ -139,6 +150,10 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
 
           } else {
             didMount.current = true;
+          }
+
+          if(response?.data?.chat_id){
+            localStorage.setItem('chatId', response?.data?.chat_id)
           }
 
 
@@ -173,7 +188,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
 
   useEffect(() => {
     if (noWelcomeMessage) {
-      setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'bot', text: 'Welcome my master. Your message is my command!', reported: false }]);
+      setMessages((prevMessage) => [...prevMessage, { role: 'assistant', content: 'Welcome my master. Your message is my command!', is_flagged: 0, reason: '' }]);
       setNoWelcomeMessage(false);
     }
   }, [noWelcomeMessage])
@@ -182,21 +197,29 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
 
     const language = languages.find((lng) => lng.value === i18n.language);
 
+    const chat_id = localStorage.getItem('chatId');
+
+    let requestData = {
+      "query": text ? text : 'hi, who are you and how can you help me?',
+      "bot_id": `bot_${botId}`,
+      "language": language.name
+    }
+
+    if(chat_id){
+      requestData.chat_id = chat_id
+    }
+
     axios({
       url: `${apiURL}/widget_handler`,
       method: 'POST',
-      data: {
-        "query": text ? text : 'hi, who are you and how can you help me?',
-        "bot_id": `bot_${botId}`,
-        "language": language.name
-      },
+      data: requestData,
       headers: {
         'Api-token': apiKey
       }
     })
       .then((response) => {
         if (response.data.status === 'success') {
-          setMessages((prevMessage) => [...prevMessage, { id: prevMessage.length, sender: 'bot', text: response.data.message, reported: false }]);
+          setMessages((prevMessage) => [...prevMessage, { role: 'assistant', content: response.data.message, is_flagged: 0, reason: '' }]);
           setIsTyping(false);
           setNoWelcomeMessage(false);
         }
@@ -304,14 +327,6 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
     }
   }
 
-  const handleReport = () => {
-    const messageToReport = messages.find((msg) => msg.id === selectedMessage.id);
-
-    if (messageToReport) {
-      messages[messageToReport.id].reported = true;
-    }
-  }
-
   return (
     <div className="flex-1 justify-between flex flex-col h-screen relative">
       <Header bot={bot} handleShowMenu={handleShowMenu} primary={primary} />
@@ -332,7 +347,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
         </div>
       </div>
       <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primary={primary} handleShowMenu={handleShowMenu} />
-      {showReport && <Report setShowReport={setShowReport} primary={primary} fadeEffect={'zoomIn'} selectedMessage={selectedMessage} handleReport={handleReport} />}
+      {showReport && <Report setShowReport={setShowReport} primary={primary} fadeEffect={'zoomIn'} selectedMessage={selectedMessage} messages={messages} />}
       <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primary={primary} setShowReport={setShowReport} showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} selectedMessage={selectedMessage} getDateTime={getDateTime} />
       <Sources showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} />
       {/* <PDFGenerator messages={messages} /> */}
