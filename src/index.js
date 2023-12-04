@@ -66,7 +66,7 @@ const Main = () => {
     <React.StrictMode>
       <BrowserRouter>
         {/* for deployed site */}
-        {/* {verified && botId && botId !== "null" && <App iframeDomain={iframeDomain} botApiId={botId} /> } */}
+        {/* {verified && botId && botId !== "null" && <App iframeDomain={iframeDomain} botApiId={botId} primaryColor={color1 ? `#${color1}` : '#912d2a'}/> } */}
 
         {/* for local site */}
         {<App iframeDomain={iframeDomain} botApiId='02a98020_eaf2_43d4_80b7_55537f3988ff' primaryColor={color1 ? `#${color1}` : '#912d2a'} />}
