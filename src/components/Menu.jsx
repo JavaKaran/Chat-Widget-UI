@@ -34,6 +34,8 @@ const Menu = ({ showHeaderMenu, messages, downloadPDF, primary, handleShowMenu, 
         })
         fetchInfo();
         i18n.changeLanguage(language.value);
+
+        localStorage.setItem('language',language.value)
     };
 
     const [dateInfo, setDateInfo] = useState('');
