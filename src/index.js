@@ -24,6 +24,8 @@ const Main = () => {
   const botId = urlParams?.get("bot");
   const language = urlParams?.get('language');
   const color1 = urlParams?.get('primary');
+
+  const localLanguage = localStorage.getItem('language');
   // const language = "en";
 
   const handlePostMessage = (event) => {
@@ -56,7 +58,11 @@ const Main = () => {
 
   useEffect(() => {
 
-    i18n.changeLanguage(language ? language : "en");
+    i18n.changeLanguage(localLanguage ? localLanguage : language ? language : "en");
+
+    if(!localLanguage){
+      localStorage.setItem('language', language ? language : 'en')
+    }
 
   }, [language])
 
