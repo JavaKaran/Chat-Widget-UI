@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import NotoSansRegular from '../fonts/NotoSans-Regular.ttf';
 import NotoArabicSans from '../fonts/NotoSansArabic-Regular.ttf';
+import ArialMS from '../fonts/Arial-Unicode-MS-Regular.ttf';
 
 Font.registerEmojiSource({
     format: 'png',
@@ -11,6 +12,7 @@ Font.registerEmojiSource({
 
 Font.register({ family: "NotoSans", src: NotoSansRegular });
 Font.register({ family: "NotoSansArabic", src: NotoArabicSans });
+Font.register({ family: "ArialMS", src: ArialMS });
 
 const styles = StyleSheet.create({
     page: {
@@ -22,12 +24,14 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         display: 'flex',
+        fontFamily: 'ArialMS'
     },
     botMessage: {
         marginBottom: 10,
         alignItems: 'flex-start',
         display: 'flex',
         justifyContent: 'flex-start',
+        fontFamily: 'ArialMS'
     },
     messageContainer: {
         flexDirection: 'row',
@@ -42,6 +46,7 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 0,
         maxWidth: '85%',
         lineHeight: 1.2,
+        fontFamily: 'ArialMS'
     },
     userText: {
         fontSize: 11,
@@ -52,6 +57,7 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 0,
         maxWidth: '85%',
         lineHeight: 1.2,
+        fontFamily: 'ArialMS'
     },
     icon: {
         width: 12,
@@ -84,13 +90,14 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     moreInfoText: {
         fontSize: 9,
         textAlign: 'center',
         fontWeight: 'bold',
         marginBottom: 5,
+        fontFamily: 'ArialMS'
     },
     siteLink: {
         fontSize: 11,
@@ -102,13 +109,15 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 11,
         lineHeight: 1.2,
-        fontWeight: 'heavy'
+        fontWeight: 'heavy',
+        fontFamily: 'ArialMS'
     },
     botName: {
         fontSize: 11,
         lineHeight: 1.2,
         textAlign: 'right',
         fontWeight: 'heavy',
+        fontFamily: 'ArialMS'
     },
     date: {
         fontSize: 10,
@@ -129,7 +138,7 @@ const ConversationPDF = ({ messages, bot, dateInfo, primary }) => {
                 </View>
                 <ChatMessage messages={messages} bot={bot} language={i18n.language} />
                 <View style={[styles.moreInfoContainer, { borderColor: primary}]}>
-                    <Text style={[styles.moreInfoText, {fontFamily: i18n.language == 'ar' ? 'NotoSansArabic' : 'NotoSans'}]}>{t('check out more info here:')}</Text>
+                    <Text style={[styles.moreInfoText]}>{t('check out more info here:')}</Text>
                     <Link src="https://www.educationaboveall.org/" style={styles.siteLink}><Text>https://www.educationaboveall.org/</Text></Link>
                 </View>
                 <Text style={styles.date}>{dateInfo}</Text>
@@ -142,9 +151,9 @@ const ConversationPDF = ({ messages, bot, dateInfo, primary }) => {
 const ChatMessage = ({ messages, bot, language }) => {
 
     const rows = messages.map((item, key) =>
-        <View style={[item.role === 'assistant' ? styles.botMessage : styles.userMessage, { fontFamily: language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]} key={key}>
-            <Text style={[item.role === 'assistant' ? styles.botName : styles.name, { fontFamily: language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>{item.role === 'assistant' ? bot?.name : "User"}:</Text>
-            <Text style={[item.role === 'assistant' ? styles.botText : styles.userText, { fontFamily: language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>
+        <View style={[item.role === 'assistant' ? styles.botMessage : styles.userMessage]} key={key}>
+            <Text style={[item.role === 'assistant' ? styles.botName : styles.name]}>{item.role === 'assistant' ? bot?.name : "User"}:</Text>
+            <Text style={[item.role === 'assistant' ? styles.botText : styles.userText]}>
                 {item.content}
             </Text>
         </View>
