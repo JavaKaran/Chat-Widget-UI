@@ -260,5 +260,5 @@ code {
   -webkit-line-clamp: 3;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  height: 54px;
+  max-height: 54px;
 }
