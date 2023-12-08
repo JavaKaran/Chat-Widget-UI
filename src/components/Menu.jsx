@@ -102,9 +102,9 @@ const Menu = ({ showHeaderMenu, messages, downloadPDF, primary, handleShowMenu, 
                         }}
                     </BlobProvider> */}
                 </div>
-                <div className="menu-item flex items-center justify-start p-[10px] cursor-pointer">
+                {/* <div className="menu-item flex items-center justify-start p-[10px] cursor-pointer">
                     <p className="mb-0 ml-0 text-[13px] leading-[16px] font-medium" style={{ color: primary }}>{t('Privacy Policy')}</p>
-                </div>
+                </div> */}
                 <div className="menu-item flex items-center justify-between p-[10px] cursor-pointer">
                     <p className="mb-0 ml-0 text-[13px] leading-[16px] font-medium" style={{ color: primary }}>{t('Select Language')}</p>
                     <div className='mr-[0px] flex items-center justify-center' onClick={handleLanguages}>

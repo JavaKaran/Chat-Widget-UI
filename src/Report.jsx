@@ -108,7 +108,7 @@ const Report = ({ primary, setShowReport, selectedMessage, fadeEffect, messages 
                                             className={`my-2 w-5 h-4`}
                                             style={{ accentColor: primary }}
                                         />
-                                        <span className="ml-2 text-[13px] text-[#333333] ">{t('Hateful')}</span>
+                                        <span className="ml-2 text-[13px] text-[#333333] font-semibold">{t('Hateful')}</span>
                                     </label>
                                 </div>
                                 <div className="radio my-[4px]">
@@ -121,7 +121,7 @@ const Report = ({ primary, setShowReport, selectedMessage, fadeEffect, messages 
                                             className={`my-2 w-5 h-4`}
                                             style={{ accentColor: primary }}
                                         />
-                                        <span className="ml-2 text-[13px] text-[#333333] ">{t('Abusive and Harassment')}</span>
+                                        <span className="ml-2 text-[13px] text-[#333333] font-semibold">{t('Abusive and Harassment')}</span>
                                     </label>
                                 </div>
                                 <div className="radio my-[4px]">
@@ -134,7 +134,7 @@ const Report = ({ primary, setShowReport, selectedMessage, fadeEffect, messages 
                                             className={`my-2 w-5 h-4`}
                                             style={{ accentColor: primary }}
                                         />
-                                        <span className="ml-2 text-[13px] text-[#333333]">{t('Spam')}</span>
+                                        <span className="ml-2 text-[13px] text-[#333333] font-semibold">{t('Spam')}</span>
                                     </label>
                                 </div>
                                 <div className="radio my-[4px]">
@@ -147,7 +147,7 @@ const Report = ({ primary, setShowReport, selectedMessage, fadeEffect, messages 
                                             className={`my-2 w-5 h-4`}
                                             style={{ accentColor: primary }}
                                         />
-                                        <span className="ml-2 text-[13px] text-[#333333]">{t('Other')}</span>
+                                        <span className="ml-2 text-[13px] text-[#333333] font-semibold">{t('Other')}</span>
                                     </label>
                                 </div>
                                 {selectedOption == 'Other' && <textarea value={otherText} onChange={handleTextChange} rows={5} placeholder={t('Not Appropriate For Children')} className="resize-none w-full md:w-[50%] my-2 p-2 text-[14px] leading-[14px] border bg-[#FCFCFC]" />}
@@ -160,7 +160,7 @@ const Report = ({ primary, setShowReport, selectedMessage, fadeEffect, messages 
                 ) : (
                     <div className={`flex items-center justify-center flex-col h-[75vh] fadeIn`}>
                         <img src="/assets/images/submitted-img.svg" width={80} height={80} alt="Submitted Icon" />
-                        <p className="text-[20px] leading-[32px] text-center font-bold mt-[20px]">{t('Your report has been submitted')}</p>
+                        <p className="text-[20px] leading-[32px] text-center font-bold mt-[20px]">{t('Your report has been submitted')}.</p>
                         <p className="text-[16px] leading-[28px] text-center text-[#333] font-semibold px-[15px]">{t('Thanks for your feedback, our team will look into it!')}</p>
                         <button className="w-[40%] py-[10px] bg-[#f3a01a] text-white mt-[30px] border-none" onClick={handleBack}>{t('OK')}</button>
                     </div>

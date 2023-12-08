@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import NotoSansRegular from '../fonts/NotoSans-Regular.ttf';
 import NotoArabicSans from '../fonts/NotoSansArabic-Regular.ttf';
+import ArialMS from '../fonts/Arial-Unicode-MS-Regular.ttf';
 
 Font.registerEmojiSource({
     format: 'png',
@@ -11,6 +12,7 @@ Font.registerEmojiSource({
 
 Font.register({ family: "NotoSans", src: NotoSansRegular });
 Font.register({ family: "NotoSansArabic", src: NotoArabicSans });
+Font.register({ family: "ArialMS", src: ArialMS });
 
 const styles = StyleSheet.create({
     page: {
@@ -20,6 +22,7 @@ const styles = StyleSheet.create({
         fontSize: 11,
         paddingVertical: 5,
         lineHeight: 1.2,
+        fontFamily: 'ArialMS'
     },
     icon: {
         width: 12,
@@ -59,6 +62,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         marginBottom: 5,
+        fontFamily: 'ArialMS'
     },
     siteLink: {
         fontSize: 11,
@@ -84,9 +88,9 @@ const ChatPDF = ({ message, dateInfo, primary }) => {
                 <View style={styles.imageContainer}>
                     <Image src="/assets/images/eaa-logo.png" style={styles.logo} />
                 </View>
-                <Text style={[styles.message, { fontFamily: i18n.language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>{message}</Text>
+                <Text style={[styles.message]}>{message}</Text>
                 <View style={[styles.moreInfoContainer, { borderColor: primary }]}>
-                    <Text style={[styles.moreInfoText, { fontFamily: i18n.language == 'ar' ? 'NotoSansArabic' : 'NotoSans' }]}>{t('check out more info here:')}</Text>
+                    <Text style={[styles.moreInfoText]}>{t('check out more info here:')}</Text>
                     <Link src="https://www.educationaboveall.org/" style={styles.siteLink}><Text>https://www.educationaboveall.org/</Text></Link>
                 </View>
                 <Text style={styles.date}>{dateInfo}</Text>
