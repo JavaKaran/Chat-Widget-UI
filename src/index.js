@@ -1,31 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import ChatWindow from './ChatWindow';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import './services/i18n';
+import { useTranslation } from 'react-i18next';
+import ReactGA from 'react-ga4';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let allowedDomains = process.env.REACT_APP_ALLOWED_DOMAINS?.split(',');
 
-const App = () => {
+const Main = () => {
+
+  const { i18n } = useTranslation();
+
   const [verified, setVerified] = useState(false);
-  const [iframeDomain, setIframeDomain] = useState(null);
+  const [iframeDomain, setIframeDomain] = useState('demo.noesis.dev');
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const botId = urlParams?.get("bot");
+  const language = urlParams?.get('language');
+  const color1 = urlParams?.get('primary');
+
+  const localLanguage = localStorage.getItem('language');
+  // const language = "en";
 
   const handlePostMessage = (event) => {
-
     if (allowedDomains.includes(event.origin)) {
 
       setIframeDomain(event.data);
       setVerified(true);
 
-    } else {
-      console.log("Origin not allowed:", event.origin);
-    }
+    } 
+    // else {
+    //   console.log("Origin not allowed:", event.origin);
+    // }
 
   };
 
@@ -38,18 +50,38 @@ const App = () => {
 
   }, []);
 
+  // useEffect(() => {
+
+  //   document.dir = i18n.dir();
+
+  // }, [i18n, i18n.language]);
+
+  useEffect(() => {
+
+    i18n.changeLanguage(localLanguage ? localLanguage : language ? language : "en");
+
+    if(!localLanguage){
+      localStorage.setItem('language', language ? language : 'en')
+    }
+
+  }, [language])
+
+  ReactGA.initialize(process.env.REACT_APP_MEASUREMENT_ID);
+
   return (
     <React.StrictMode>
-      {/* for deployed site */}
-      {verified && botId && botId !== "null" && <ChatWindow iframeDomain={iframeDomain} botApiId={botId} /> }
+      <BrowserRouter>
+        {/* for deployed site */}
+        {verified && botId && botId !== "null" && <App iframeDomain={iframeDomain} botApiId={botId} primaryColor={color1 ? `#${color1}` : '#912d2a'}/> }
 
-      {/* for local site */}
-      {/* {<ChatWindow iframeDomain={iframeDomain} botApiId='' /> } */}
+        {/* for local site */}
+        {/* <App iframeDomain={iframeDomain} botApiId='02a98020_eaf2_43d4_80b7_55537f3988ff' primaryColor={color1 ? `#${color1}` : '#912d2a'} />  */}
+      </BrowserRouter>
     </React.StrictMode>
   );
 }
 
-root.render(<App />);
+root.render(<Main />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
