@@ -16,6 +16,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useToaster } from 'react-hot-toast';
 import { analytic } from '../utils/Analytics.js';
+import PromptsSuggestion from '../components/PromptsSuggestion.jsx';
 
 const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
 
@@ -52,6 +53,7 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
   ];
 
   const [showSources, setShowSources] = useState(false);
+  const [showPrompts, setShowPrompts] = useState(false);
 
   const textAreaRef = useRef();
   const messageListRef = useRef();
@@ -256,6 +258,10 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
     setShowSources(!showSources);
   }
 
+  const handlePromptsMenu = () => {
+    setShowPrompts(!showPrompts);
+  }
+
   const downloadPDF = async () => {
     // // const messages = document.getElementById("message-list");
     // const messages = document.getElementById("messages-list-inside");
@@ -327,6 +333,11 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
     }
   }
 
+  const handlePromptClick = (text) => {
+    handlePromptsMenu();
+    handleMessageSend(text);
+  }
+
   return (
     <div className="flex-1 justify-between flex flex-col h-screen relative">
       <Header bot={bot} handleShowMenu={handleShowMenu} primary={primary} />
@@ -346,7 +357,8 @@ const ChatWindow = ({ iframeDomain, botApiId, primaryColor }) => {
           {isTyping && <Typing image={bot.image} primary={primary} />}
         </div>
       </div>
-      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primary={primary} handleShowMenu={handleShowMenu} />
+      <PromptsSuggestion showPrompts={showPrompts} handlePromptsMenu={handlePromptsMenu} handlePromptClick={handlePromptClick} />
+      <Input textAreaRef={textAreaRef} handleMessageSend={handleMessageSend} isTyping={isTyping} setIsTyping={setIsTyping} disabled={disabled} primary={primary} handleShowMenu={handleShowMenu} handlePromptsMenu={handlePromptsMenu} />
       {showReport && <Report setShowReport={setShowReport} primary={primary} fadeEffect={'zoomIn'} selectedMessage={selectedMessage} messages={messages} />}
       <MessageMenu showMessageMenu={showMessageMenu} handleMessageMenu={handleMessageMenu} primary={primary} setShowReport={setShowReport} showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} selectedMessage={selectedMessage} getDateTime={getDateTime} />
       <Sources showSources={showSources} setShowSources={setShowSources} handleSourceMenu={handleSourceMenu} />

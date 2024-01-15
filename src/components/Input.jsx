@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { analytic } from '../utils/Analytics';
 
-const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled, primary, handleShowMenu }) => {
+const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled, primary, handleShowMenu, handlePromptsMenu }) => {
 
     const { t, i18n } = useTranslation();
 
@@ -67,7 +67,7 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
     // };
 
     return (
-        <div className="border-t-2 border-gray-200 p-2 sm:p-6 sm:mb-0 shadow-lg">
+        <div className="border-t-2 border-gray-200 p-2 sm:p-6 sm:mb-0 shadow-lg bg-white z-10">
             <div className="relative flex justify-around items-center">
                 {/* <div className='mr-[5px]' onClick={handleLanguages}>
                     <p className={`border-1 border-solid p-2 rounded-2xl uppercase mb-0 text-[10px] leading-[12px]`} style={{ color: primary, borderColor: primary }}>{selectedLanguage}</p>
@@ -76,6 +76,12 @@ const Input = ({ textAreaRef, handleMessageSend, setIsTyping, isTyping, disabled
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="10" cy="10" r="9.5" stroke={primary} />
                         <path d="M9.68847 7.1417L5.11884 12.2333C5.04256 12.3183 5 12.4311 5 12.5485C5 12.6659 5.04256 12.7788 5.11884 12.8637L5.124 12.8692C5.16099 12.9105 5.2055 12.9434 5.25484 12.9659C5.30418 12.9884 5.35731 13 5.411 13C5.4647 13 5.51783 12.9884 5.56717 12.9659C5.61651 12.9434 5.66102 12.9105 5.69801 12.8692L10.0009 8.07451L14.302 12.8692C14.339 12.9105 14.3835 12.9434 14.4328 12.9659C14.4822 12.9884 14.5353 13 14.589 13C14.6427 13 14.6958 12.9884 14.7452 12.9659C14.7945 12.9434 14.839 12.9105 14.876 12.8692L14.8812 12.8637C14.9574 12.7788 15 12.6659 15 12.5485C15 12.4311 14.9574 12.3183 14.8812 12.2333L10.3115 7.1417C10.2713 7.09692 10.223 7.06128 10.1695 7.03692C10.1159 7.01256 10.0583 7 10 7C9.94174 7 9.88409 7.01256 9.83054 7.03692C9.77699 7.06128 9.72866 7.09692 9.68847 7.1417Z" fill={primary} stroke={primary} strokeWidth="0.5" />
+                    </svg>
+                </a>
+                <a className='dropup-icon-link px-[5px] cursor-pointer mr-2' onClick={handlePromptsMenu}>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="10" cy="10" r="9.5" stroke={primary} />
+                        <path d="M9.15 10.525C10.13 10.505 10.87 10.305 11.37 9.925C11.88 9.545 12.135 9.035 12.135 8.395C12.135 8.125 12.085 7.87 11.985 7.63C11.885 7.39 11.74 7.18 11.55 7C11.36 6.82 11.13 6.68 10.86 6.58C10.59 6.48 10.285 6.43 9.945 6.43C9.385 6.43 8.885 6.555 8.445 6.805C8.005 7.045 7.595 7.39 7.215 7.84L6.45 7.105C6.88 6.585 7.375 6.165 7.935 5.845C8.495 5.525 9.175 5.365 9.975 5.365C10.485 5.365 10.945 5.44 11.355 5.59C11.765 5.74 12.115 5.95 12.405 6.22C12.705 6.48 12.935 6.795 13.095 7.165C13.255 7.525 13.335 7.92 13.335 8.35C13.335 8.82 13.25 9.235 13.08 9.595C12.92 9.945 12.695 10.245 12.405 10.495C12.125 10.745 11.795 10.945 11.415 11.095C11.045 11.245 10.645 11.35 10.215 11.41L10.065 13.03H9.3L9.075 10.6L9.15 10.525ZM10.365 16H8.985V14.425H10.365V16Z" fill={primary} />
                     </svg>
                 </a>
                 {/* <div className={`fixed top-0 w-full h-full z-20 ${showLanguage ? 'block' : 'hidden'}`} onClick={handleLanguages}>
